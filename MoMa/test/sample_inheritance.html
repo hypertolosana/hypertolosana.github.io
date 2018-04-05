@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script src="../Moma.js"></script>
+<script>
+    MoMa.ModuleManager.
+
+            debug(true).
+        // assume Test.* files are under src/test folder
+        setModulePath( "Test", "js" ).
+
+        // load src/test/A.js file and define Test.A Class.
+        bring([
+            "Test.A",
+            "Test.B"
+        ]).
+
+        // when
+        onReady(function() {
+
+            var va= new Test.A("value for Class a");
+            var vb= new Test.B( "value for a", "value for b" );
+
+            console.log( va.getValue() );
+            // "value for Class a"
+
+            console.log( vb.getValue() );
+            // "superValue=value for Class a value=value for b"
+        });
+</script>
+</body>
+</html>

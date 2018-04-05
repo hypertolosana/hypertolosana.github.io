@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script src="../Moma.js"></script>
+<script>
+    MoMa.ModuleManager.
+
+        // assume Test.* files are under src/test folder
+        setModulePath( "Test", "js" ).
+
+        // load src/test/A.js file and define Test.A Class.
+        bring("Test.A").
+
+        // when
+        onReady(function() {
+
+            var v0= new Test.A();
+            var v1= new Test.A("new value");
+
+            console.log( v0.getValue() );
+            // "test.a value"
+
+            console.log( v1.getValue() );
+            // "new value"
+        });
+</script>
+</body>
+</html>

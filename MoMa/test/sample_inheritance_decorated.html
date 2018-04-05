@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script src="../Moma.js"></script>
+<script>
+    MoMa.ModuleManager.
+
+        // assume Test.* files are under src/test folder
+            setModulePath("Test", "js").
+
+        // load src/test/A.js file and define Test.A Class.
+            bring([
+                "Test.A",
+                "Test.BDecorated"
+            ]).
+
+        // when
+            onReady(function () {
+
+                var va = new Test.A("value for Class a");
+                var vb = new Test.BDecorated("value for Test.A", "value for Test.BDecorated");
+
+                console.log(va.getValue());
+                // "value for Class a"
+
+                console.log(vb.getValue());
+                // "superValue=value for Class a value=value for b"
+
+
+                Test.A.extend({
+
+                    val2: null,
+
+                    __init: function (val) {
+                        this.__super(val);
+                        this.val2 = 12345;
+                    },
+
+                    getValue: function () {
+                        return "superValue implicit='" + this.__super() + "' value='" + this.val2 + "'";
+                    }
+
+                }, null, "Test.AA", null, { decorated: true });
+
+                console.log( new Test.AA().getValue() );
+
+            });
+
+</script>
+</body>
+</html>
