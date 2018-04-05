@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tile {
+        }
+
+        .bgic {
+            width: 100%;
+            height: 100%;
+            background: rgb(24,24,24);
+            overflow: hidden;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        /* background image container */
+        .bgicc {
+        }
+
+        .loginbox {
+            position:absolute;
+            top:50%;
+            left:50%;
+            width:456px;
+            height:312px;
+            margin-top:-156px;
+            margin-left:-228px;
+            background: #111;
+            opacity: 0.85;
+            border: 1px dotted;
+            padding: 5px;
+            display: block;
+            z-index: 100;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div style="position:fixed; float:right; width: 100%; opacity: .9; background: #fff;">
+    <span>
+        <input id='showc' checked type="checkbox"><label for="showc">show curtain.</label>
+    </span>
+    <span>
+        <input type="range" id="opacityc" min="0" max="100" value="50" step="5"><label for="opacityc">Curtain opacity.</label>
+    </span>
+    <span id="currentop"></span>
+</div>
+
+
+<div class="loginbox">
+
+</div>
+
+<script>
+
+    (function(images, maxFlyingImages) {
+
+        document.getElementById('showc').addEventListener("change",showCurtain,false);
+        document.getElementById('opacityc').addEventListener("change",opacityCurtain,false);
+        function showCurtain(ev) {
+            for( var i=0; i<flyingTiles.length; i++ ) {
+                var curtain= flyingTiles[i].__flyData.curtain;
+                curtain.style.display= ev.target.checked ? 'block' : 'none';
+            }
+        }
+        function opacityCurtain(ev) {
+            for( var i=0; i<flyingTiles.length; i++ ) {
+                var curtain= flyingTiles[i].__flyData.curtain;
+                var cv= ev.target.value/100;
+                currentop.innerText= cv;
+                curtain.style.opacity= cv;
+            }
+        }
+
+
+        var Preferences= {
+            MIN_TIME:           20000,
+            MAX_TIME:           30000,
+            START_DELAY:        500,
+            BACKGROUND_COLOR:   '#000',
+            ENABLE_CURTAIN:     true,
+            CURTAIN_OPACITY:    .5
+        }
+
+        var times= [ 18000, 36000, 46000 ];
+        var bgimages= [];
+        var flyingTiles= null;
+
+        /**
+         * Preload background images, and save th
+         */
+        function loadImages( ) {
+
+            var loadedImages=0;
+            var foundImages= [];
+
+            for( var i=0; i<images.length; i++ ) {
+                var image= new Image();
+                image.__rows= images[i].rows || 1;
+                image.__columns= images[i].columns || 1;
+                image.onload = function imageLoaded(event) {
+                    loadedImages++;
+                    bgimages.push( event.target );
+                    if ( loadedImages==images.length ) {
+                        endLoading();
+                    }
+                };
+                image.onerror= function imageErrored() {
+                    loadedImages++;
+                    if ( loadedImages==images.length ) {
+                        endLoading();
+                    }
+                }
+                image.src= images[i].url;
+            }
+        }
+
+        function setClass(node, clazz) {
+            if ( node.className || node.className==="" ) {
+                node.className= clazz;
+            } else if ( node['class'] ) {
+                node['class']= clazz;
+            }
+        }
+        /**
+         * After loading images, create a floating div for each element.
+         */
+        function endLoading() {
+
+            //var container= document.getElementById('bgic');
+            var bgic= document.createElement('div');
+            bgic.id= 'bgic';
+            setClass(bgic,'bgic');
+
+            var imageAvgWidth=0;
+            var index= 0;
+            var k,i,j,l;
+            var timeNow= new Date().getTime();
+            var moreImages= true;
+
+            for( i=0; i<bgimages.length; i++ ) {
+                imageAvgWidth+=bgimages[i].width;
+            }
+            imageAvgWidth/=bgimages.length;
+            imageAvgWidth-=20;
+
+            while( index<maxFlyingImages ) {
+                for( k=0, l=bgimages.length; k<l; k++ ) {
+                    var im=         bgimages[k];
+                    var rows=       im.__rows || 1;
+                    var columns=    im.__columns || 1;
+                    var tw=         im.width/columns;
+                    var th=         im.height/rows;
+
+                    for( i=0; i<rows && moreImages; i++ ) {
+                        for ( j=0; j<columns && moreImages; j++ ) {
+                            var tx= (j*im.width/columns)>>0;
+                            var ty= (i*im.height/rows)>>0;
+
+                            var container= document.createElement('div');
+                            container.style.position= 'absolute';
+                            container.style.width= tw+'px';
+                            container.style.height=th+'px';
+                            setClass(container,'tile');
+                            container.style.top= window.innerHeight+'px';
+                            var ix= index*imageAvgWidth; //Math.random();
+                            container.style.left= ix+'px'; //((ix*window.innerWidth)>>0)+'px'
+                            container.style.overflow='hidden';
+
+                            var div= document.createElement('div');
+                            div.style.position= 'absolute';
+                            div.style.width= tw+'px';
+                            div.style.height=th+'px';
+                            div.style.background= 'url('+im.src+') -'+tx+'px -'+ty+'px';
+
+                            container.appendChild(div);
+
+                            container.__flyData= {
+                                width:  tw,
+                                height: th,
+                                imageX: ix,
+                                imageIndex: index,
+                                time: 0,
+                                start:  timeNow+(index*Preferences.START_DELAY),
+                                tx: tx,
+                                ty: ty,
+                                image: div
+                            };
+
+
+                            if ( Preferences.ENABLE_CURTAIN ) {
+                                var curtain= document.createElement('div');
+                                setClass(curtain,'bgicc');
+                                curtain.style.opacity= Preferences.CURTAIN_OPACITY;
+                                curtain.style.background= Preferences.BACKGROUND_COLOR;
+                                curtain.style.position= 'absolute';
+                                curtain.style.width= tw+'px';
+                                curtain.style.height=th+'px';
+
+                                container.appendChild(curtain);
+
+                                container.__flyData.curtain= curtain;
+                            }
+
+                            bgic.appendChild(container);
+
+
+                            index++;
+
+                            if ( index>maxFlyingImages ) {
+                                moreImages= false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if ( document.body.children.length ) {
+                document.body.insertBefore( bgic, document.body.children[0] );
+            } else {
+                document.body.appendChild(bgic);
+            }
+
+            flyingTiles= document.querySelectorAll('div.tile');
+
+            // set time index values
+            var timesIndex= [];
+            for( i=0; i<flyingTiles.length; i++ ) {
+                timesIndex.push( i%times.length );
+            }
+            for( i=0; i<300; i++ ) {
+                var t= (Math.random()*timesIndex.length)>>0;
+                var ii= i%timesIndex.length;
+                var xx= timesIndex[ii];
+                timesIndex[ii]= timesIndex[t];
+                timesIndex[t]= xx;
+            }
+            for( i=0; i<flyingTiles.length; i++ ) {
+                flyingTiles[i].__flyData.timeIndex= timesIndex[i];
+                flyingTiles[i].__flyData.time= times[ timesIndex[i] ]+((Math.random()*10000)>>0);
+            }
+
+            setInterval(startFly, 1000/60);
+        }
+
+        function startFly() {
+            var timeNow= new Date().getTime();
+
+
+            for( var i=0, l=flyingTiles.length; i<l; i++ ) {
+                var tile= flyingTiles[i];
+                var data= tile.__flyData;
+
+                if ( timeNow>=data.start ) {
+                    // ha pasado mas tiempo del establecido. volver a poner abajo.
+                    if ( timeNow-data.start >= data.time ) {
+                        tile.style.top= window.innerHeight+'px';
+
+                        // cycle elements throughout the defined flying times.
+                        data.timeIndex= (data.timeIndex+1)%times.length;
+                        data.time= times[data.timeIndex]+((Math.random()*10000)>>0);
+                        data.start= timeNow;
+
+                        // cambiamos la imagen
+                        var iindex= (Math.random()*bgimages.length)>>0;
+                        data.image.style.background= 'url('+bgimages[iindex].src+') -'+data.tx+'px -'+data.ty+'px no-repeat';
+
+                    } else {
+                        var max= window.innerHeight+data.height;
+                        tile.style.top= (window.innerHeight-((timeNow-data.start)/data.time)*max)+'px';
+                        tile.style.left= data.imageX+'px';
+                    }
+                } else {
+                    tile.style.top= window.innerHeight+'px';
+                }
+            }
+        }
+
+        loadImages();
+
+    })(
+        [
+                //{url: 'botones.png', rows:7, columns:3 },
+            {url: '2.png'},
+            {url: '3.png'},
+            {url: '5.png'},
+            {url: '7.png'}
+        ],
+        15
+    );
+</script>
+
+</body>
+</html>

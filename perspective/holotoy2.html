@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17485141-1']);
+  _gaq.push(['_trackPageview']);
+ 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+    <title>Holotoy</title>
+    <style>
+
+        div {
+            -webkit-transform-style: preserve-3d;
+        }
+
+        .root {
+            position: fixed;
+            -webkit-perspective: 300;
+            -webkit-perspective-origin: 50% 50%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .scenario {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            margin: 0 auto;
+            
+        }
+
+        #back,
+        #left,
+        #right,
+        #top,
+        #bottom {
+            position: absolute;
+            -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.5) inset;
+        }
+
+        #back {
+            width: 500px;
+            height: 500px;
+            background: #ddd;
+            text-align: center;
+            -webkit-transform: translateZ(-50px);
+        }
+
+        #left {
+            height: 500px;
+            width: 100px;
+            background: #bbb;
+            -webkit-transform: translateX(-50px) rotate3d(0, 1, 0, 90deg);
+        }
+
+        #right {
+            height: 500px;
+            width: 100px;
+            background: #999;
+            -webkit-transform: translateX(450px) rotate3d(0, 1, 0, -90deg);
+        }
+
+        #top {
+            height: 100px;
+            width: 500px;
+            background: #bbb;
+            -webkit-transform: translateY(-50px) rotate3d(1, 0, 0, 90deg);
+        }
+
+        #bottom {
+            height: 100px;
+            width: 500px;
+            background: #999;
+            -webkit-transform: translateY(450px) rotate3d(1, 0, 0, -90deg);
+        }
+
+
+        #cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            margin: 0 auto;
+            -webkit-transform: scale3d(.4,.4,.2) rotateY(-50deg) rotateX(25deg);
+
+        }
+
+        #cshadow {
+            position: absolute;
+            left: -125px;
+            top: -125px;
+            width: 750px;
+            height: 750px;
+            background: rgba(0, 0, 0, 0.4);
+            -webkit-transform: scale3d(.4,.4,.2) rotateZ(25deg) translateZ(-225px) ;
+        }
+
+        #cback,
+        #cleft,
+        #ctop,
+        #cfront,
+        #cright,
+        #cbottom {
+            position: absolute;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #cfront {
+            width: 500px;
+            height: 500px;
+            -webkit-transform: translateZ(250px);
+            -webkit-transform-style: preserve-3d;
+        }
+
+
+        #cback {
+            width: 500px;
+            height: 500px;
+            -webkit-transform: translateZ(-250px) rotate3d(1,0,0, 180deg);
+        }
+
+        #cleft {
+            height: 500px;
+            width: 500px;
+            -webkit-transform: translateX(-250px) rotate3d(0, 1, 0, -90deg);
+        }
+
+        #cright {
+            height: 500px;
+            width: 500px;
+            -webkit-transform: translateX(250px) rotate3d(0, 1, 0, 90deg);
+        }
+
+        #ctop {
+            height: 500px;
+            width: 500px;
+            -webkit-transform: translateY(-250px) rotate3d(1, 0, 0, 90deg);
+        }
+
+        #cbottom {
+            height: 500px;
+            width: 500px;
+            -webkit-transform: translateY(250px) rotate3d(1, 0, 0, -90deg);
+        }
+
+        h1 {
+            font: normal 16pt Arial;
+            color: #FFFFFF;
+            text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2);
+
+            border: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            background: #444;
+            color: #777;
+        }
+
+        body {
+            font-family: 'Lucida Grande';
+        }
+
+    </style>
+</head>
+<body>
+
+<div style="height:70px;">
+    <span>
+        <a href="http://labs.hyperandroid.com">More experiments</a>&nbsp;
+    </span>
+    <span style="float:right">
+        <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="hyperandroid">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    </span>
+    <span style="float:right">
+        Safari/iOS/Chrome.&nbsp;&nbsp;
+    </span>
+</div>
+<div class="root" id="root">
+    <div class="scenario">
+        <div id="back" style="overflow:hidden;">
+            <div style="position:relative; -webkit-transform: rotateZ(15deg); top:-100px; left:-150px; width:800px; height:600px">
+                <h1>
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                    Ideateca Ideateca Ideateca Ideateca
+                </h1>
+            </div>
+        </div>
+        <div id="left"></div>
+        <div id="right"></div>
+        <div id="top"></div>
+        <div id="bottom"></div>
+
+        <div id="cshadow"></div>
+
+        <div id="cube">
+            <!--
+            <div id="cback">
+                <iframe src="http://forvo.com" style="width:100%; height:100%;"></iframe>
+            </div>
+            <div id="ctop"><iframe src="http://www.google.com" style="width:100%; height:100%;"></iframe></div>
+            <div id="cleft">
+                <iframe src="http://www.ideatecagames.com" style="width:100%; height:100%;"></iframe>
+            </div>
+            -->
+            <div id="cright">
+                <iframe src="http://www.ludei.com" style="width:100%; height:100%; background:#fff;"></iframe>
+            </div>
+            <div id="cbottom"><iframe src="http://www.ideateca.com" style="width:100%; height:100%;"></iframe></div>
+            <div id="cfront">
+                <video id="videoShowcase" width="500" height="500"
+                       src="http://movies.apple.com/media/us/html5/showcase/2010/demos/apple-html5-demo-tron_legacy-us-20100601_r848-2cie.mov"
+                       poster="http://images.apple.com/html5/showcase/video/images/tron_legacy.jpg" loop="loop"
+                       autoplay="autoplay" autobuffer="autobuffer">
+                    <img src="http://images.apple.com/html5/showcase/video/images/tron_legacy.jpg"/>
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    window.addEventListener(
+            'load',
+            function() {
+                if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)) {
+                    addEventListener("orientationchange", onOrientationChange, false);
+                    addEventListener("devicemotion", onMotionChange, false);
+                }
+                document.addEventListener('mousemove', setPerspectiveOrigin, false);
+            },
+            false);
+
+    function onOrientationChange( event ) {
+		updateOrientation();
+		event.preventDefault();
+
+    }
+
+    var orientation=0;
+
+    // Thanks @Hakimel for this function :D 
+    function onMotionChange(event) {
+
+        if (orientation) {
+            var beta = -event.accelerationIncludingGravity.z;
+            var gamma = -event.accelerationIncludingGravity.y;
+        }
+        else {
+            var beta = -event.accelerationIncludingGravity.z;
+            var gamma = -event.accelerationIncludingGravity.x;
+        }
+
+        var x= ( ( gamma / 5 ) + 0.5 ) * 100;
+        if ( x<25 ) { x=25; } else if ( x>75 ) { x=75; }
+        var y= ( ( beta / 5 ) - 0.5 ) * 100;
+        if ( y<10 ) { y=10; } else if ( y>90 ) { y=90; }
+        var style= x+'% '+y+'%';
+        document.getElementById('root').style.webkitPerspectiveOrigin= style;
+
+        event.preventDefault();
+
+    }
+
+    function updateOrientation() {
+        if (window.orientation == 90 || window.orientation == -90) {
+            orientation = 1;
+        } else {
+            orientation = 0;
+        }
+    }
+
+    function setPerspectiveOrigin(ev) {
+        var x= ev.pageX;
+        var y= ev.pageY;
+        setPrespectiveImpl(x,y);
+    }
+
+    function setPrespectiveImpl(x,y) {
+        x= x*50/window.innerWidth  + 25;
+        y= y*70/window.innerHeight + 15;
+
+        var style= x+'% '+y+'%';
+        document.getElementById('root').style.webkitPerspectiveOrigin= style;
+    }
+
+</script>
+
+</body>
+</html>

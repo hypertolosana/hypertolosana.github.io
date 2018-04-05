@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <script src="../../lib/caat.js"></script>
+    <script src="stars.js"></script>
+    <script>
+        var __director;
+
+        /**
+         * Startup it all up when the document is ready.
+         * Change for your favorite frameworks initialization code.
+         */
+        window.addEventListener(
+                'load',
+                start,
+                false);
+
+        function start() {
+            new CAAT.ImagePreloader().loadImages(
+                [
+                    {id:'stars',  url:'../stars.png'}
+                ],
+                function( count, images ) {
+                    if ( count===images.length ) {
+                        __director= new CAAT.Director().initialize( 800, 500 ).setClear(false);
+                        __director.enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
+                        __director.setImagesCache(images);
+                        __scene1( __director );
+                    }
+                }
+            )
+        }
+    </script>
+</head>
+<body style="margin:0; padding:0;">
+
+</body>
+</html>

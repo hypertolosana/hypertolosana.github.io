@@ -1,0 +1,5 @@
+.jcarousel-container, .jcarousel-clip, .jcarousel-item {
+    overflow: hidden;
+    width:  467px;
+    height: 325px;
+}

@@ -1,0 +1,250 @@
+.hidden { position: absolute !important; top: -99999px !important; left: -999999px !important; overflow: hidden !important; width: 1px !important; height: 1px !important;}
+.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; } .clearfix { display: inline-block; } html[xmlns] .clearfix { display: block; } * html .clearfix { height: 1%; }
+
+a {
+  color: #fff;
+  background-color: transparent;
+}
+
+.spacer {
+  margin: 40px 0;
+  background: url(../images/shape/spacer.png) repeat-x 0 0;
+  height: 4px;
+}
+
+.main_working_area {
+  position: relative;
+  margin: 0 auto;
+  width: 960px;
+}
+
+.page_section {
+  padding-top: 20px;
+  margin-bottom: 130px !important;
+}
+
+.maincols_1_2_1 {
+  width: 100%;
+  overflow: hidden;
+}
+  .maincols_1_2_1_left {
+    float: left; display: inline;
+    width: 150px;
+  }
+  .maincols_1_2_1_center {
+    float: left; display: inline;
+    width: 540px;
+    margin: 0 0 0 30px;
+  }
+  .maincols_1_2_1_right {
+    float: right; display: inline;
+    width: 210px;
+  }    
+  
+.maincols_1_2 {
+  width: 100%;
+  overflow: hidden;
+} 
+  .maincols_1_2_left {
+    float: left; display: inline;
+    width: 240px;
+  }
+  .maincols_1_2_right {
+    float: right; display: inline;
+    width: 640px;
+  }    
+   
+  
+  
+.sidemenu {
+}
+  .sidemenu .navigation {
+    background: url(../images/sidemenu/shadow_top.png) no-repeat 0 0;
+    padding: 10px 0 5px 20px;
+  }
+  
+  .sidemenu ul {
+    margin: -5px 0 0 0;
+    padding: 0;
+    list-style-type: none;
+    background: url(../images/sidemenu/shadow.png) repeat-y 0 0;
+  }
+  .sidemenu li {
+    width: 139px;
+    margin: 5px 0 0 2px;
+    font-size: 16px;
+    line-height: 1.2em;
+    background: url(../images/sidemenu/item_bg.png) no-repeat 0 100%;
+    padding-bottom: 13px;
+  }
+  .sidemenu li:hover, .sidemenu li.active {
+    padding-right: 7px;
+    background-position: -200px 100%;
+  }
+  .sidemenu li a {
+    display: block;
+    text-decoration: none;
+    padding: 2px 3%;
+    width: 96%;
+    text-shadow: -1px 2px 2px rgba(0,0,0,0.3);
+  }
+  
+  .sidemenu .aux_bottom {
+    height: 35px;
+    background: url(../images/sidemenu/shadow_bottom.png) no-repeat 0 100%;
+  }
+  
+  
+.slider_images {
+}  
+  .slider_images .nav {
+    overflow: hidden;
+    margin: 0 10px 5px 0;
+    text-align: right;
+  }
+    .slider_images .nav ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      float: right; display: inline;
+    } 
+    .slider_images .nav li {
+      float: left; display: inline;
+      margin-left: 2px;
+    }
+    .slider_images .nav li a {
+      float: left; display: inline;
+      width: 12px;
+      height: 12px;
+      text-align: left;
+      overflow: hidden;
+      text-indent: -999px;
+      background: url(../images/shape/circle.png) no-repeat 0 0;
+    }
+    .slider_images .nav li.active a, .slider_images .nav li a:hover {
+      background-position: 0 100%;
+    }
+   
+  .slider_images .images {
+    position: relative;
+    height: 455px;
+  }
+    .slider_images .frame {
+      position: absolute;
+      z-index: 10;
+      width: 534px;
+      height: 455px;
+      background: url(../images/shape/frame.png) no-repeat 0 0;
+    }
+    .slider_images .images .carousel_holder {
+      position: absolute;
+      top: 31px;
+      left: 32px;
+    }  
+    .slider_images .images ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }  
+    .slider_images .images img {
+      width: 467px;
+      height: 325px;
+    } 
+    
+.demo_preview_info {
+}    
+  .demo_preview_info .title {
+    margin: 0 0 7px 0;
+    padding: 5px 5px 6px 5px;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 1em;
+    background: #ed046a;
+    color: #fff;
+    text-shadow: -1px 2px 2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 3px 2px #000; -webkit-box-shadow: 3px 3px 2px #000; box-shadow: -3px 3px 2px #000;
+  }
+  .demo_preview_info .text {
+    font-size: 14px;
+    line-height: 1.2em;
+    text-shadow: -2px 2px 5px rgba(0,0,0,1);
+  }  
+  .demo_preview_info .more {
+    margin: 0.5em 0 0 0;
+    font-size: 28px;
+    line-height: 1.2em;
+    text-shadow: -4px 4px 4px rgba(0,0,0, 1);
+  }    
+  
+.list_medal {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    overflow: hidden;
+}  
+    .list_medal li {
+        float: left; display: inline;
+        margin: 0 0 20px 20px;
+        width: 421px;
+        height: 84px;
+    }
+    .list_medal li a {
+        display: block;
+        width: 100%;
+        height: 84px;
+        line-height: 75px;
+        text-align: center;
+        color: #fff;
+        background-color: transparent;
+        text-decoration: none;
+        font-size: 24px;
+        background: url(../images/shape/medal.png) no-repeat 0 0;
+        text-shadow: 0 -1px #039796;
+
+    }
+    
+.listA {
+    margin: 0;
+    padding: 0 0 15px 0;
+    list-style-type: none;
+    display: table;
+}
+    .listA li {
+        display: table-cell;
+        vertical-align: bottom;
+        width: 150px;
+        padding-right: 20px;
+    }    
+    .listA li a {
+        position: relative;
+        display: block;
+        width: 100%;
+        background: url(../images/shape/item_point.png) no-repeat 0 100%;
+        padding: 20px 0 30px 0;
+        font-size: 20px;
+        line-height: 1.2em;
+        text-decoration: none;
+        text-shadow: -1px 1px rgba(0,0,0,0.5);
+    }
+    .listA li a:hover {
+        background-image: url(../images/shape/item_point_hover.png);
+    }
+        .listA li a span {
+            display: block;
+            padding: 0 5px 0 8px;
+        }
+
+        .listA li a strong {
+            display: block;
+            font-weight: normal;
+        }
+        .listA li a span.ball {
+            position: absolute;
+            padding: 0;
+            left: -6px;
+            bottom: -20px;
+            width: 13px;
+            height: 13px;
+            overflow: hidden;
+            background: url(../images/shape/ball.png) no-repeat 0 0;
+        }

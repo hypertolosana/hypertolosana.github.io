@@ -1,0 +1,94 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: #333 url(../images/layout/body_bg.jpg) repeat 50% 0;;
+  color: #fff;
+  font-family: "Oswald", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.2em; 
+}
+
+#container {
+  min-width: 960px; width: auto !important; width: 960px;
+  min-height: 100%; height: auto !important; height: 100%;
+  font-size: 62.5%;
+  line-height: 1.2em;
+  background: url(../images/layout/container_bg.jpg) no-repeat 50% 0;
+  margin-bottom: -200px;
+}
+#footer, #push_footer {
+  height: 200px;
+}
+
+#topmenu {
+  background: url(../images/layout/topmenu_bg.jpg) repeat-x 0 41px;
+}
+  #topmenu_content {
+    padding-top: 40px;
+    min-height: 90px; height: auto !important; height: 90px;
+  }
+
+  #logo {
+    float: right; display: inline;
+    margin: -33px 0 0 0;
+  }
+  
+  #topmenu ul {
+    float: left; display: inline;
+    overflow: hidden;
+    margin: 0 0 0 -35px;
+    padding: 0;
+    list-style-type: none;
+  }
+    #topmenu li {
+      float: left; display: inline;
+      font-size: 19px;
+      line-height: 35px;
+      margin: 0 0 0 35px;
+      text-align: center;
+    }
+    #topmenu li a {
+      float: left; display: inline;
+      color: #fff;
+      background-color: transparent;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      text-decoration: none;
+      height: 48px;
+      overflow: hidden;
+      text-align: left;
+      text-indent: -9999px;
+    }
+    #topmenu li a:hover {
+      background-position: 0 -100px;
+    }
+    #topmenu li.active a {
+      background-position: 0 -200px;
+    }
+    #topmenu li.menu_demos a {
+      width: 68px;
+      background-image: url(../images/layout/topmenu/demos.png);
+    }    
+    #topmenu li.menu_tutorials a {
+      width: 100px;
+      background-image: url(../images/layout/topmenu/tutorials.png);
+    }    
+    #topmenu li.menu_about a {
+      width: 68px;
+      background-image: url(../images/layout/topmenu/about.png);
+    }    
+    #topmenu li.menu_downloads a {
+      width: 110px;
+      background-image: url(../images/layout/topmenu/downloads.png);
+    }         
+    
+#footer_github {
+  position: fixed;
+  right: 0;
+  bottom: -2px;
+  z-index: 1000;
+}          

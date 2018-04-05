@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd"> 
+ 
+<html lang="en"> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <title>Perspectiva</title>
+  <style type="text/css" media="screen"> 
+    body {
+      font-family: 'Lucida Grande', Verdana, Arial;
+      font-size: 12px;
+    }
+
+    #page {
+        margin: 50px auto;
+        position: relative;
+        width: 800px;
+    }
+
+    #container {
+      position: relative;
+      height: 400px;
+      width: 800px;
+      border: 1px solid #bbb;
+      -webkit-perspective: 500;
+    }
+ 
+    #container > div {
+      position: relative;
+      margin: 0 auto;
+      width: 300px;
+      height: 200px;
+      padding: 20px;
+      font-family: monospace;
+      font-size: 12pt;
+      border: 1px solid black;
+      -webkit-box-sizing: border-box;
+    }
+ 
+    #container > :first-child {
+      background: url('mathmayhem.png');
+      -webkit-transform: rotateY(45deg);
+    }
+ 
+    #container > :last-child {
+
+      background: url('spriter.png');
+      -webkit-transform: rotateX(45deg);
+    }
+ 
+    #controls {
+      margin: 50px 100px;
+    }
+    
+    #controls > input {
+      width: 100%;
+    }
+  </style> 
+  <script type="text/javascript" charset="utf-8">
+      function updatePerspective(value) {
+          document.getElementById('container').style.webkitPerspective = value;
+          document.getElementById('perspective-value').innerText = value;
+      }
+
+      function setPerspectiveOrigin(event) {
+          var container = document.getElementById('page');
+
+          var offsetX = event.pageX - container.offsetLeft;
+          var offsetY = event.pageY - container.offsetTop;
+
+          var x = (100 * offsetX / container.offsetWidth);
+          x = ((x * 100) >> 0) / 100;
+          var y = (100 * offsetY / container.offsetHeight);
+          y = ((y * 100) >> 0) / 100;
+
+          setPerspectiveImpl(x, y);
+      }
+
+      function setPerspectiveImpl(x, y) {
+          var originStyle = x + '% ' + y + '%';
+          document.getElementById('perspective-origin').innerText = '-webkit-perspective=' + originStyle;
+          document.getElementById('container').style.webkitPerspectiveOrigin = originStyle;
+      }
+
+      window.addEventListener('load', function() {
+          var container = document.getElementById('container');
+          container.addEventListener('mousemove', setPerspectiveOrigin, false);
+          container.addEventListener('mouseout', function() {
+              setPerspectiveImpl(50, 50);
+          }, false);
+          setPerspectiveImpl(50, 50);
+          updatePerspective(500)
+      }, false);
+  </script>
+</head>
+<body>
+
+<div style="width:100%">
+    <div id="page">
+        <div id="container">
+            <div></div>
+            <div></div>
+        </div>
+
+
+        <div id="controls">
+            <span>
+                <input type="range" min="60" max="1500" value="500" onchange="updatePerspective(this.value)">
+            </span>
+            <span>
+                Current perspective:
+            </span>
+            <span id="perspective-value"></span>
+
+            <span id="perspective-origin" style="margin-left:30px;">
+            </span>
+        </div>
+
+    </div>
+
+</div>
+</body> 
+</html> 

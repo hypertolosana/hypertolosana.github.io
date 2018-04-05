@@ -1,0 +1,402 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Cross-platform Javascript - A(nother) survival guide.</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Noticia+Text:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+    <link href="css/impress-demo.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+    <style>
+        .content-title {
+            color:          #363636;
+            font-size:      50px;
+            clear:          both;
+            width:          auto;
+            height:         auto;
+            text-align:     left;
+            font-weight:    bold;
+            line-height:   1.1em;
+        }
+
+        .motivation {
+            color:          #363636;
+            font-size:      30px;
+            clear:          both;
+            width:          auto;
+            height:         auto;
+            font-weight:    bold;
+            line-height:   1.1em;
+        }
+
+        .wmotivation {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding-left: 5px;
+            background-color: #eee;
+            line-height: 1.3;
+        }
+
+        .ludei {
+            right: 0;
+            bottom: -2px;
+            position: fixed;
+            width:          auto;
+            height:         auto;
+            display:    block;
+            z-index: 1000;
+        }
+
+        .empty {
+            font-size: 16px;
+        }
+
+        .title-icon {
+            box-sizing: border-box;
+            margin-left: 10px;
+            padding-left: 10px;
+            margin-right: 10px;
+            padding-right: 10px;
+
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        .navigator {
+            position: fixed;
+            left: 5px;
+            width:26px;
+            background-color: #ddd;
+            z-index: 1000;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<script>
+    window.resizeTo( 1280, 720 );
+</script>
+
+<div class="ludei"><img src="res/logo.png"></div>
+<div id="nav" class="navigator"></div>
+
+<div id="impress" class="impress-not-supported">
+
+    <div id="intro" class="step" data-x="0" data-y="-1000" data-rotate="-45">
+        <div style="position:absolute; top:50%; left:50%; width:900px; height:482px; margin-left:-450px; margin-top:-241px; display: block;">
+            <div id="root" class="root">
+                <div style="position:relative; -webkit-transform-style: preserve-3d;">
+                    <div id="tiler" class="tiler" style="z-index:0">
+                        <img src='ibon/intro/img/2.jpg'>
+                        <img src='ibon/intro/img/1.jpg'>
+                        <img src='ibon/intro/img/3.png'>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="slide1" class="step" data-x="700" data-y="-1700" data-scale="1" data-rotate="-45">
+        <div class="content-title" style="text-align: center;"><span class="title-icon"><img src="res/iconos/avatar.png"></span>About me</div>
+        <div>
+            <p class="empty">&nbsp;</p>
+            <li>CTO @Ludei</li>
+            <li>Past: MMPC games, Java, C++, ...</li>
+            <li>Doer: github.com/hyperandroid</li>
+            <li>@hyperandroid, labs.hyperandroid.com, freenode.net#bbg, hashbbg.com</li>
+        </div>
+    </div>
+
+    <div id="slide2" class="step" data-x="1400" data-y="-2100" data-scale="1" data-rotate="45">
+        <p class="content-title"><span class="title-icon"><img src="res/iconos/titulo.png"></span>Cross-Platform Javascript</p>
+        <p class="content-title">A(nother) Survival Guide</p>
+        <p class="empty">&nbsp;</p>
+        <li>Cross-platform definition [CORA]
+        <li>One long-term maintainable code base.
+        <li>Multi rendering target.
+        <li>System Abstraction.
+    </div>
+
+    <div id="slide3" class="step" data-x="2100" data-y="-1400" data-scale="1" data-rotate="45">
+        <div class="content-title"><span>Input</span><span class="title-icon"><img src="res/iconos/input.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <p class="motivation"><span class="wmotivation">Motivation:</span> different input devices on different platforms. How to make an input system abstraction.</p>
+        <p class="empty">&nbsp;</p>
+        <li>Canvas coordinate identification.
+        <li>Browsers were not built for gaming.
+        <li>Touch to  Mouse
+        <li>Keyboard/Accelerometer to virtual cursor
+    </div>
+
+
+    <div id="slide4" class="step" data-x="2800" data-y="-700" data-scale="1" data-rotate="135">
+        <div class="content-title"><span>Transformation Stack</span><span class="title-icon"><img src="res/iconos/ejes.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <p class="motivation"><span class="wmotivation">Motivation:</span> ctx does not expose the current transformation matrix. WebGL/CSS does not contain a AT either.</p>
+        <p class="empty">&nbsp;</p>
+        <li>Pixel perfect mouse-entity collision detection.
+        <li>Homogeneous coordinates
+        <li>Common projection space for collision, etc.
+        <li>Screen resolution agnostic.
+    </div>
+
+    <div id="slide5" class="step" data-x="2100" data-y="0" data-rotate="135" style="border: 1px solid #aaa; margin:0; padding:0;" >
+        <canvas id="_pp"></canvas>
+    </div>
+
+    <div id="slide6" class="step" data-x="1400" data-y="700" data-rotate="135" data-scale="1">
+        <div class="content-title"><span>Complex paths</span><span class="title-icon"><img src="res/iconos/path.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <p class="motivation"><span class="wmotivation">Motivation:</span> ctx exposes complex path api but no path measurer. Games require a polished animation system.</p>
+        <p class="empty">&nbsp;</p>
+        <li>Derive Bezier patches.
+        <li>More patches, Catmull, rectangular, circular.
+        <li>Derive a PathMeasurer.
+        <li>Make a path be a PathSegment.
+        <li>Use paths as easing functions.
+        <li>Apply paths as clip areas.
+    </div>
+
+    <div id="slide7" class="step" data-x="700" data-y="1400" data-rotate="135" style="border: 1px solid #aaa; margin:0; padding:0;">
+        <div>
+            <canvas id="_path"></canvas>
+        </div>
+    </div>
+
+    <div id="slide8" class="step" data-x="0" data-y="2100" data-rotate="225" data-scale="1">
+        <div class="content-title"><span>Sound</span><span class="title-icon"><img src="res/iconos/sound.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <p class="motivation"><span class="wmotivation">Motivation:</span> fix the buggy system.</p>
+        <p class="empty">&nbsp;</p>
+        <li>File format war.
+        <li>Fix buggy loop and concurrent sound.
+        <li>Fix API fragmentation.
+    </div>
+
+    <div id="slide9" class="step" data-x="-700" data-y="1400" data-rotate="225" data-scale="1">
+        <div class="content-title"><span>Fonts</span><span class="title-icon"><img src="res/iconos/fonts.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <p class="motivation"><span class="wmotivation">Motivation:</span> poor glyph control.</p>
+        <p class="empty">&nbsp;</p>
+        <li>No control for font ascend/descent/height.
+        <li>No glyph outline control.
+        <li>Mess around with CSS.
+    </div>
+
+    <div id="slide10" class="step" data-x="-1400" data-y="700" data-rotate="225" data-scale="1">
+        <div class="content-title"><span>Trivial optimizations</span><span class="title-icon"><img src="res/iconos/optimi.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <p class="motivation"><span class="wmotivation">Motivation:</span> performance improvement for free (as in free beer).</p>
+        <p class="empty">&nbsp;</p>
+        <li>Coordinate clamping.
+        <li>Avoid line drawing.
+        <li>Avoid fill/stroke text.
+        <li>RGBA vs RGB
+        <li>Avoid setting globalalpha
+        <li>Layer different canvas objects
+        <li>Fastest drawing operation: the not done one.
+    </div>
+
+    <div id="slide11" class="step" data-x="-2100" data-y="0" data-rotate="225" data-scale="1">
+        <div class="content-title"><span>WebGL</span><span class="title-icon"><img src="res/iconos/webgl.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <p class="motivation"><span class="wmotivation">Motivation:</span> where available, performance improvement with the same code base.</p>
+        <p class="empty">&nbsp;</p>
+        <li>Object oriented vs Data oriented.
+        <li>Pre-pack transparencies into an sprite sheet.
+        <li><a href="ibon/tp/sp.html" target="_black">Pack textures</a> vs set shader texture.
+        <li>JS transformation vs uniform matrices.
+        <li>Flush when condition changes.
+        <li>Be aware of the blending.
+        <li>Pre-mutiplied alpha channel.</li>
+    </div>
+
+    <div id="slide12" class="step" data-x="-2800" data-y="-700" data-rotate="315" data-scale="1">
+        <div class="content-title"><span>CSS</span><span class="title-icon"><img src="res/iconos/css3.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <p class="motivation"><span class="wmotivation">Motivation:</span> become truly cross-browser. Allow low-end devices to execute at decent performance.</p>
+        <p class="empty">&nbsp;</p>
+        <li>Wrap on-screen entities inside DIV elements.
+        <li>Input Proxy div.
+        <li>Prefixing.
+    </div>
+
+    <div id="slide13" class="step" data-x="-2100" data-y="-1400" data-rotate="315" data-scale="1">
+        <div class="content-title"><span>CSS3 Transitions</span><span class="title-icon"><img src="res/iconos/css3.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <p class="motivation"><span class="wmotivation">Motivation:</span> fill the gap between hardware accelerated CSS transformations and its js-fallback counterpart.</p>
+        <p class="empty">&nbsp;</p>
+        <li>Android 2.3.5 and below.
+        <li>Different threads = Timing issues.
+        <li>On-Application listener ?
+        <li>Hard to apply new timing functions.
+        <li>One key-frame cancells the other one.
+        <li>Not that good idea.
+    </div>
+
+    <div id="slide14" class="step" data-x="-1400" data-y="-2100" data-rotate="405" data-scale="1">
+        <div class="content-title"><span>Test</span><span class="title-icon"><img src="res/iconos/css3.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <div>
+            <div style="text-align: center; border: 1px solid #ddd; border-radius: 5px;">
+                <a href="ibon/stars/canvas.html" target="_blank">Canvas</a></div>
+            <p class="empty"> &nbsp;</p>
+            <div style="text-align: center; border: 1px solid #ddd; border-radius: 5px;">
+                <a href="ibon/stars/gl.html" target="_blank">WebGL</a></div>
+            <p class="empty">&nbsp;</p>
+            <div style="text-align: center; border: 1px solid #ddd; border-radius: 5px;">
+                <a href="ibon/stars/css.html" target="_blank">CSS</a></div>
+        </div>
+    </div>
+
+    <div id="slide15" class="step" data-x="-700" data-y="-1400" data-rotate="405" data-scale="1">
+        <div class="content-title"><span>Conclussion</span><span class="title-icon"><img src="res/iconos/preguntas.png"></span></div>
+        <p class="empty">&nbsp;</p>
+        <li><span class="wmotivation">Abstraction</span> is the way for cross-plaftorm.
+        <li>Technology state, still for <span class="wmotivation">early adopters</span>.
+        <li>To reach as much devices as possible, focus on every rendering technology.
+        <li>Mobile performance is not that good, but chrome for android is pushing the envelope.
+        <li>Can't compete with native apps. <span class="wmotivation">Hybrid</span> apps are the way ?
+    </div>
+
+
+    <!--
+        
+        So to make a summary of all the possible attributes used to position presentation steps, we have:
+        
+        * `data-x`, `data-y`, `data-z` -- they define the position of **the center** of step element on
+            the canvas in pixels; their default value is 0;
+        * `data-rotate-x`, `data-rotate-y`, 'data-rotate-z`, `data-rotate` -- they define the rotation of
+            the element around given axis in degrees; their default value is 0; `data-rotate` and `data-rotate-z`
+            are exactly the same;
+        * `data-scale` -- defines the scale of step element; default value is 1
+        
+    -->
+    <div id="overview" class="step" data-x="0" data-y="0" data-rotate="360" data-scale="8">
+    </div>
+
+</div>
+
+
+<script src="js/impress.js"></script>
+<script>impress();</script>
+
+<link rel="stylesheet" href="ibon/intro/tiler.css" type="text/css">
+<script src="ibon/intro/modernizr.js"></script>
+<script src="ibon/intro/tiler.js"></script>
+<script src="ibon/intro/tilerDom.js"></script>
+<script>
+    impress().addListener( function( data ) {
+        Tiler().setAutoRun( data.newId==="intro" );
+    });
+</script>
+
+<script src="lib/caat.js"></script>
+
+<script src="ibon/path/fish.js"></script>
+<script src="ibon/path/path.js"></script>
+
+<script src="ibon/coords/coords.js"></script>
+
+
+<script>
+    // hack hack
+    setTimeout( function() {
+        __icons( [
+                    "input.png",
+                    "input.png",
+                    "input.png",
+                    "ejes.png",
+                    "ejes.png",
+                    "path.png",
+                    "path.png",
+                    "sound.png",
+                    "font.png",
+                    "optimi.png",
+                    "webgl.png",
+                    "css3.png",
+                    "css3.png",
+                    "css3.png",
+                    "preguntas.png",
+                    "preguntas.png"
+                ] );
+    }, 2000 );
+
+    function __arr( im ) {
+        var a= [];
+        for( var i=0; i<im.length; i++ ) {
+            a.push( {
+                id: im[i],
+                url: "res/miniiconos/"+im[i]
+            });
+        }
+        return a;
+    };
+
+    function __icons( im ) {
+        var i;
+        new CAAT.ImagePreloader().loadImages(
+            __arr(im),
+            function( count, images ) {
+                if ( count===images.length ) {
+                    run(images);
+                }
+            });
+    }
+
+    function run( icons ) {
+        var stepSize= 25;
+        var StepSizePad= 2;
+        var currentIndex=0;
+        var slides= [];
+        var ns= impress().getNumSlides()-1;         // -1 para quitar el indice.
+        var nav= document.getElementById("nav");
+
+
+        impress().addListener( function( data ) {
+            nav.style["display"]= data.index===0 ? "none" : "block";
+            if ( !data.index ) {
+                return;
+            }
+            slides[currentIndex].style["background-color"]= "#ddd";
+            currentIndex= data.index-1;
+            slides[currentIndex].style["background-color"]= "#aaa";
+        });
+
+        var h= ns*(stepSize+StepSizePad);
+        nav.style["top"]= (720-h)/2+"px";
+        nav.style["height"]= h+"px";
+
+        for( var i=0; i<icons.length; i++ ) {
+            var slide= document.createElement("div");
+            slide.style.cssText="position:absolute; left:0; top: "+(i*(stepSize+StepSizePad))+"px; ";
+            slide.appendChild( icons[i].image );
+            slides.push(slide);
+            nav.appendChild(slide);
+        }
+/*
+        for( var i=0; i<ns-1; i++ ) {
+            var slide= document.createElement("div");
+            slide.style.cssText="border-radius: "+stepSize/2+"px; width:"+stepSize+"px; height:"+stepSize+"px; position:absolute; left:0; top: "+(i*(stepSize+StepSizePad))+"px; background-color: #bbb;";
+            nav.appendChild(slide);
+            slides.push( slide );
+        }
+*/
+        impress().start();
+    }
+
+
+
+</script>
+
+</body>
+</html>

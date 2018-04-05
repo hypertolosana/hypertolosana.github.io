@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>animation | HyperAndroid</title>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17485141-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</head>
+
+
+<body style="color:black; background:#ffffff;">
+<div id="container"></div>
+</body>
+
+<script type="text/javascript" src="../lib/caat.js"></script>
+<script type="text/javascript" src="fishpondscene.js"></script>
+<script type="text/javascript">
+    (function() {
+        document.body.style["margin"]=      0;
+        document.body.style["padding"]=     0;
+        document.body.style["overflow"]=    "hidden";
+
+        var w= window.innerWidth;
+        var h= window.innerHeight;
+
+        var canvas= document.createElement("canvas");
+        document.getElementById("container").appendChild(canvas);
+
+        var director = new CAAT.Director().initialize(w,h,canvas);
+        director.addScene(  __scene_fish_pond(director, 30) );
+        director.setClear(false);
+        director.loop(60);
+    })();
+</script>
+</html>

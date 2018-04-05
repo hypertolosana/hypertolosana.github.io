@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+
+    <link rel="stylesheet" href="tiler.css" type="text/css">
+
+</head>
+<body bgcolor="#fff">
+
+<div>
+    <div>
+        <div class="root">
+            <div id="tiler" class="tiler">
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor1.jpg'>
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor2.jpg'>
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor3.jpg'>
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor4.jpg'>
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor5.jpg'>
+            </div>
+        </div>
+        <div>
+            <ul id='paginator' class="paginator">
+            </ul>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="control">
+            <div>Max rows</div>
+            <div>
+                <span><input type="range" min="1" max="32" step="1" value="12" onchange="setPref('rows',this.value,'rows');"></span>
+                <span id="rows">12</span>
+            </div>
+        </div>
+        <div class="control">
+            <div>Max columns</div>
+            <div>
+                <span><input type="range" min="1" max="32" step="1" value="12" onchange="setPref('columns',this.value,'columns');"></span>
+                <span id="columns">12</span>
+            </div>
+        </div>
+        <div class="control">
+            <div>Tile rotation time (ms)</div>
+            <div>
+                <span><input type="range" min="500" max="5000" step="250" value="2500" onchange="setPref('tileRotationTime',this.value,'tilerotationtime');"></span>
+                <span id="tilerotationtime">2500</span>
+            </div>
+        </div>
+        <div class="control">
+            <div>Tile delay (ms)</div>
+            <div>
+                <span><input type="range" min="25" max="200" step="25" value="50" onchange="setPref('tileDelay',this.value,'tiledelay');"></span>
+                <span id="tiledelay">50</span>
+            </div>
+        </div>
+        <div class="control">
+            <div>Tile rotation style</div>
+            <div>
+                <select name="tileaxis" onchange="setPref('tileRotationStyle', this.value, null);">
+                    <option value="random" selected>Random</option>
+                    <option value="horizontal">Horizontal</option>
+                    <option value="vertical">Vertical</option>
+                    <option value="both">Both</option>
+                    <option value="both-2">Both 2</option>
+                    <option value="any">Any</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="control">
+            <div>
+                <span><input type="checkbox" checked onchange="setAutoRun();"></span><span>Auto run</span>
+            </div>
+        </div>
+        <div>
+            <p>
+                This experiment will only work properly on <b>Safari 5+</b> or <b>Chrome/Chromium 11/12.</b>
+                Other browsers won't be able to show it properly due to the lack of CSS3 3D transformations and/or
+                CSS3 transitions.
+            </p>
+            <p>
+                Use <b>cursor keys</b> to zoom/rotate the tiler grid.
+            </p>
+            <p>
+                Tiler will randomly divide the image into flying tiles. I've set the maximum possible values to be 12x12.
+                Modify the rows and columns value to set up to 32x32 maximum tiles.
+            </p>
+        </div>
+        <div>
+            <span>
+                <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="hyperandroid">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            </span>
+            <span>
+                <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Flabs.hyperandroid.com/CSS3Tiler&amp;layout=button_count&amp;show_faces=false&amp;width=120&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+            </span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="modernizr.js"></script>
+<script type="text/javascript" src="tiler.js"></script>
+<script type="text/javascript" src="tilerDom.js"></script>
+
+</body>
+</html>

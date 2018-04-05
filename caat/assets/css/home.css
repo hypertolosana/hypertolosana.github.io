@@ -1,0 +1,68 @@
+.page_home {
+  margin: 0 auto;
+  width: 800px;
+}
+  .page_home .header {
+    overflow: hidden;
+    padding-left: 300px;
+  }
+  .page_home .header .logo {
+    float: left; display: inline;
+    margin: 0 0 0 -300px;
+  }
+  .page_home .header .title {
+    margin: 0 0 10px 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 60px;
+    line-height: 1em;
+  }
+  .page_home .header .text {
+    font-size: 21px;
+    line-height: 1.2em;
+    text-shadow: -2px 2px 5px rgba(0,0,0,1);
+  }
+  .page_home .menu {
+  }
+    .page_home .menu ul {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }   
+    .page_home .menu li {
+      float: left; display: inline;
+      margin-left: 55px;
+    }
+    .page_home .menu li:first-child {
+      margin-left: 0;
+    }
+    .page_home .menu li a {
+      float: left; display: inline;
+      overflow: hidden;
+      text-align: left;
+      text-indent: -9999px;
+      height: 208px;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+    }
+    .page_home .menu li.active a, .page_home .menu li a:hover {
+      background-position: 0 100%;
+    }
+    .page_home .menu li.menu_demos a {
+      width: 170px;
+      background-image: url(../images/pages/home/menu/demos.png);
+    }
+    .page_home .menu li.menu_tutorials a {
+      width: 145px;
+      background-image: url(../images/pages/home/menu/tutorials.png);
+    }
+    .page_home .menu li.menu_about a {
+      width: 160px;
+      background-image: url(../images/pages/home/menu/about.png);
+    }
+    .page_home .menu li.menu_downloads a {
+      width: 155px;
+      background-image: url(../images/pages/home/menu/downloads.png);
+    }
+    

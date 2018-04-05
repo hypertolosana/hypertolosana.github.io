@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery Masonry Basic multi-column example</title>
+
+  <link rel="stylesheet" href="style.css" media="screen" />  
+  
+  <!-- scripts are located at the bottom of the markup -->
+
+    <style>
+
+        .root {
+            position: relative;
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            -webkit-perspective: 800;  /* play with this for sharper angles */
+            -webkit-perspective-origin: 50% 50%;
+            -webkit-backface-visibility: 'hidden';
+
+            -o-transform-origin: 50% 50%;
+        }
+
+        .test_button {
+            border: solid;
+            border-color: #ccc;
+            background: #700;
+            color: #eee;
+        }
+
+        .flip_wrapper {
+            position:absolute;
+            display: none;
+        }
+
+        .flip_content {
+            position:relative;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            -webkit-transform-style: preserve-3d;
+            -webkit-transition: -webkit-transform 1s ease;
+            display: none;
+            opacity: 0;
+        }
+
+        .curtain {
+            position: fixed;
+            display: none;
+            overflow: auto;
+            background: rgba(128,128,128,.5);
+            width: 100%;
+            height: 100%;
+            left: 0px;
+            top: 0px;
+        }
+
+    </style>
+
+</head>
+<body>
+  
+  <div id="site-nav">
+    <h1>jQuery Masonry</h1>
+    <ul>
+      <li><a href=".">Primer</a></li>
+      <li><a href="basic-single-column.html">Basic single-column</a></li>
+      <li class="selected"><a href="basic-multi-column.html">Basic multi-column</a>
+        <ul>
+          <li><a href="#content">Top</a></li>
+          <li><a href="#code">Code</a></li>
+          <li><a href="#demo">Demo</a></li>
+        </ul>
+      </li>
+      <li><a href="tumblelog.html">Tumblelog</a></li>
+      <li><a href="appending.html">Appending</a></li>
+      <li><a href="infinite-scroll.html">Infinite Scroll</a></li>
+      <li><a href="animating-jquery.html">Animating with jQuery</a></li>
+      <li><a href="animating-css-transitions.html">Animating with CSS transitions</a></li>
+      <li><a href="filtering.html">Filtering</a></li>
+      <li><a href="filtering-hashes.html#red">Filtering hashes</a></li>
+    </ul>
+  </div>
+
+  <div id="content">
+
+    <h1>Basic multi-column example</h1>  
+
+    <div class="copy">
+      <p>This example demonstrates the basic effect of jQuery Masonry. All &lsquo;bricks&rsquo; have outerWidths (width + padding + border + margin) that are multiples of 100 pixels. <code>columnWidth</code> is set to <code>100</code>.</p>
+
+      <pre id="code"><code><span class="keyword">$</span>(<span class="string">'#demo'</span>).masonry({
+  columnWidth: <span class="constant">100</span>, 
+  itemSelector: <span class="string">'.box'</span> 
+});</code></pre>
+
+
+      <p><code>itemSelector</code> is specified to rearrange all <code>box</code> elements, including the ones inside another <code>div</code>. </p>
+
+  <pre><code><span class="storage">&lt;div id=<span class="string">"demo"</span> class=<span class="string">"wrap"</span>&gt;</span>
+  <span class="storage">&lt;div class=<span class="string">"box col2"</span>&gt;</span>...<span class="storage">&lt;/div&gt;</span>
+  <span class="storage">&lt;div class=<span class="string">"box col3"</span>&gt;</span>...<span class="storage">&lt;/div&gt;</span>
+  <span class="storage">&lt;div class=<span class="string">"box col1"</span>&gt;</span>...<span class="storage">&lt;/div&gt;</span>
+  <span class="storage">&lt;div class=<span class="string">"box col1"</span>&gt;</span>...<span class="storage">&lt;/div&gt;</span>
+  <span class="storage">&lt;div&gt;</span>
+    <span class="storage">&lt;div class=<span class="string">"box col2"</span>&gt;</span>...<span class="storage">&lt;/div&gt;</span>
+    <span class="storage">&lt;div class=<span class="string">"box col2"</span>&gt;</span>...<span class="storage">&lt;/div&gt;</span>
+    <span class="storage">&lt;div class=<span class="string">"box col1"</span>&gt;</span>...<span class="storage">&lt;/div&gt;</span>
+  <span class="storage">&lt;/div&gt;</span>
+<span class="storage">&lt;/div&gt;</span> <span class="comment">&lt;!-- #demo --&gt;</span></code></pre>
+
+
+
+    </div><!-- .copy -->
+
+    <div id="demo" class="wrap">
+
+<div class="box col2 flip_div" id="flip5">
+                <div class="test_button" onclick="flip('flip5');">W</div>
+                <p>Sit amet mi ullamcorper vehicula</p>
+                <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis.</p>
+</div>
+
+      <div class="box col2" id="test">
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
+      </div>
+
+      <div class="box col1" id="test2">
+        <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. </p>
+      </div>
+
+      <div class="box col1">
+        <p>Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula  </p>
+      </div>
+
+      <div class="box">
+        <h2>This is the box with no width set</h2>
+      </div>
+
+      <div class="box col1">
+        <h2>Sit amet mi ullamcorper vehicula</h2>
+      </div>
+
+<div class="box col3" id="flip4">
+          <div class="test_button" onclick="flip('flip4');">W</div>
+          <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis.</p>
+          <p>Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
+          <p>Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
+</div>
+
+
+      <div class="box col1">
+        <p>adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus.</p>
+      </div>
+
+<div class="box col2" id="flip0">
+            <div class="test_button" onclick="flip('flip0');">W</div>
+            <p>Sit amet mi ullamcorper vehicula</p>
+            <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis.</p>
+</div>
+
+        <div class="box col1">
+        <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+      </div>
+
+      <div class="box col2">
+        <p>Ut condimentum mi vel tellus. Suspendisse laoreet. Fusce ut est sed dolor gravida convallis. Morbi vitae ante. Vivamus ultrices luctus nunc. Suspendisse et dolor. Etiam dignissim. Proin malesuada adipiscing lacus. Donec metus. Curabitur gravida.</p>
+        <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+      </div>
+
+      <div class="box col3">
+        <p>Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
+      </div>
+
+      <div class="box col1">
+        <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis.</p>
+      </div>
+
+      <div>
+        <div class="box col2">
+          <p>Vestibulum volutpat, lacus a ultrices sagittis,</p>
+          <p>Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula  </p>
+        </div>
+
+        <div class="box col2">
+          <p>Sit amet mi ullamcorper vehicula</p>
+        </div>
+
+        <div class="box col1">
+          <p>Morbi purus libero</p>
+        </div>
+
+        <div class="box col1">
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
+        </div>
+
+<div class="box col3" id="flip1" >
+          <div class="test_button" onclick="flip('flip1');">W</div>
+          <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean
+              dignissim pellentesque felis.</p>
+
+          <p>Vestibulum volutpat, lacus a ultrices sagittis,</p>
+          <ul>
+              <li>Lacus a ultrices sagittis</li>
+              <li>Democratis</li>
+              <li>Plummus</li>
+          </ul>
+</div>
+
+          <div class="box col1">
+          <p>Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula  </p>
+        </div>
+
+        <div class="box col1">
+          <p>Sit amet mi ullamcorper vehicula</p>
+        </div>
+
+        <div class="box col1">
+          <h2>Morbi purus libero</h2>
+        </div>
+
+
+        <div class="box col2">
+          <p>Ut condimentum mi vel tellus. Suspendisse laoreet. Fusce ut est sed dolor gravida convallis. Morbi vitae ante. Vivamus ultrices luctus nunc. Suspendisse et dolor. Etiam dignissim. Proin malesuada adipiscing lacus. Donec metus. Curabitur gravida.</p>
+          <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+        </div>
+
+        <div class="box col1">
+          <p>Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula</p>
+        </div>
+
+<div class="box col3" id="flip2">
+            <div class="test_button" onclick="flip('flip2');">W</div>
+            <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis.</p>
+            <p>Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
+            <p>Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
+</div>
+
+
+        <div class="box col1">
+          <p>adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus.</p>
+        </div>
+
+        <div class="box col2">
+          <p>Sit amet mi ullamcorper vehicula</p>
+        </div>
+
+        <div class="box col1">
+          <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+        </div>
+
+        <div class="box col1">
+          <h2>Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula  </h2>
+        </div>
+
+        <div class="box col2">
+          <p>Ut convallis, sem sit amet interdum consectetuer, odio augue aliquam leo, nec dapibus tortor nibh sed augue.</p>
+          <p>Ut condimentum mi vel tellus. Suspendisse laoreet. Fusce ut est sed dolor gravida convallis. Morbi vitae ante. Vivamus ultrices luctus nunc. Suspendisse et dolor. Etiam dignissim. Proin malesuada adipiscing lacus. Donec metus. Curabitur gravida.</p>
+        </div>
+
+        <div class="box col1">
+
+          <ul>
+            <li>Lacus a ultrices sagittis</li>
+            <li>Democratis</li>
+            <li>Plummus</li>
+          </ul>
+        </div>
+
+        <div class="box col3">
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.</p>
+          <p>Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula  </p>
+          <p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus.</p>
+        </div>
+
+        <div class="box col2">
+          <p>adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus.</p>
+          <p>Ut convallis, sem sit amet interdum consectetuer, odio augue aliquam leo, nec dapibus tortor nibh sed augue.  Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
+        </div>
+
+        <div class="box col1">
+          <p>Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+        </div>
+
+        <div class="box col1">
+          <p>Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula</p>
+        </div>
+
+        <div class="box col3">
+          <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis.</p>
+          <p>Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus. Sed vel lacus. Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. Etiam pellentesque mauris ut lectus. Nunc tellus ante, mattis eget, gravida vitae, ultricies ac, leo. Integer leo pede, ornare a, lacinia eu, vulputate vel, nisl.</p>
+        </div>
+
+
+      </div>
+
+      <div class="box col1">
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
+      </div>
+
+      <div class="box col1">
+        <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. </p>
+      </div>
+
+      <div class="box col1">
+        <p>Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula  </p>
+      </div>
+
+      <div class="box col2">
+        <p>Vestibulum volutpat, lacus a ultrices sagittis,</p>
+        <p>Fusce accumsan mollis eros. Pellentesque a diam sit amet mi ullamcorper vehicula  </p>
+        <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis.</p>
+      </div>
+
+    </div> <!-- #demo --> 
+
+    <p id="footer">
+      jQuery Masonry by <a href="http://desandro.com/">David DeSandro</a>
+    </p>
+
+
+
+  </div> <!-- #content -->
+
+  <div class="curtain" id="curtain" onclick="unflip();"></div>
+
+  <div class="flip_wrapper" id="flip_wrapper" onclick="unflip();">
+      <div class="root" >
+          <div class="flip_content" id="flip_content" onclick="unflip();">
+              <!-- inject here the content previous to doing the animation -->
+              <img src="1.png">
+          </div>
+      </div>
+  </div>
+
+  <div class="flip_wrapper" id="flip_wrapper_front" onclick="unflip();">
+      <div class="root" >
+          <div class="flip_content" id="flip_content_front">
+              <p>djflkj flkjd lfkj dlkj fldkj flkd jflk jdlfkdjf </p>
+          </div>
+      </div>
+  </div>
+
+
+  <script src="jquery-1.4.2.min.js"></script>
+  <script src="jquery-css-transform.js" type="text/javascript"></script>
+  <script src="jquery-animate-css-rotate-scale.js" type="text/javascript"></script>
+  
+  <script src="jquery.masonry.min.js"></script>
+  <script>
+    $(function(){
+      $('#demo').masonry({
+        columnWidth: 100, 
+        itemSelector: '.box'
+      });
+    });
+
+    var Modernizer = {};
+    (function() {
+
+        Modernizer.CSS3Check = function() {
+            this.docElement = document.documentElement;
+            this.docHead = document.head || document.getElementsByTagName('head')[0];
+            this.mod = 'modernizr';
+            this.modElem = document.createElement(this.mod);
+            this.m_style = this.modElem.style;
+            this.prefixes = ' -webkit- -moz- -o- -ms- -khtml- '.split(' ');
+            this.domPrefixes = 'Webkit Moz O ms Khtml'.split(' ');
+
+            return this;
+        }
+
+        Modernizer.CSS3Check.prototype = {
+
+            test_props: function(props, callback) {
+                for (var i in props) {
+                    if (this.m_style[ props[i] ] !== undefined && ( !callback || callback(props[i], this.modElem) )) {
+                        return true;
+                    }
+                }
+            },
+
+            testMediaQuery : function(mq) {
+
+                var st = document.createElement('style'),
+                        div = document.createElement('div'),
+                        ret;
+
+                st.textContent = mq + '{#modernizr{height:3px}}';
+                this.docHead.appendChild(st);
+                div.id = 'modernizr';
+                this.docElement.appendChild(div);
+
+                ret = div.offsetHeight === 3;
+
+                st.parentNode.removeChild(st);
+                div.parentNode.removeChild(div);
+
+                return !!ret;
+
+            },
+
+            isCSS_transitionsEnabled: function() {
+
+                var me= this;
+
+                function test_props_all( prop, callback ) {
+
+                    var uc_prop = prop.charAt(0).toUpperCase() + prop.substr(1),
+                        props   = (prop + ' ' + me.domPrefixes.join(uc_prop + ' ') + uc_prop).split(' ');
+
+                    return !!me.test_props( props, callback );
+                }
+
+                return !!test_props_all('transitionProperty');
+            },
+
+            isCSS3_3DEnabled: function() {
+
+                var ret = !!this.test_props(
+                        [
+                            'perspectiveProperty',
+                            'WebkitPerspective',
+                            'MozPerspective',
+                            'OPerspective',
+                            'msPerspective' ]);
+
+                // Webkit’s 3D transforms are passed off to the browser's own graphics renderer.
+                //   It works fine in Safari on Leopard and Snow Leopard, but not in Chrome in
+                //   some conditions. As a result, Webkit typically recognizes the syntax but
+                //   will sometimes throw a false positive, thus we must do a more thorough check:
+                if (ret && 'webkitPerspective' in this.docElement.style) {
+                    // Webkit allows this media query to succeed only if the feature is enabled.
+                    // `@media (transform-3d),(-o-transform-3d),(-moz-transform-3d),(-ms-transform-3d),(-webkit-transform-3d),(modernizr){ ... }`
+                    ret = this.testMediaQuery('@media (' + this.prefixes.join('transform-3d),(') + 'modernizr)');
+                }
+
+                return ret;
+            }
+        }
+    })();
+
+
+    var prevSX;
+    var prevSY;
+    var time= 1000; // animation time in ms.
+    var modernizr= new Modernizer.CSS3Check();
+    var isCSS3DEnabled= modernizr.isCSS3_3DEnabled();
+    var isCSSTransitionsEnabled= modernizr.isCSS_transitionsEnabled();
+
+    function copyNode(node) {
+
+         var copyNode=  node.cloneNode(true);
+/*         copyNode.id=   node.id+'-copy';
+
+         for(var i = 0, l= copyNode.childNodes.length; i<l;  i++)	{
+             if(copyNode.childNodes[i].id) {
+                 copyNode.childNodes[i].id    = copyNode.childNodes[i].id+'-copy';
+             }
+         }
+*/
+         return copyNode;
+     }
+
+     function copyChildNodes( from, to ) {
+
+         // remove children from to
+         // remove children
+         while (to.hasChildNodes()) {
+             to.removeChild(to.lastChild);
+         }
+
+         // copy child nodes from 'from' to 'to' nodes.
+         var cn= from.childNodes;
+         if (null!=cn) {
+             for( var i=0, l=cn.length; i<l; i++ ) {
+                 to.appendChild( copyNode(cn[i]) );
+             }
+         }
+     }
+
+    function flip(nodeName) {
+        var node= document.getElementById(nodeName);
+        if ( node ) {
+
+            var fc= document.getElementById('flip_content');
+            var fcf= document.getElementById('flip_content_front');
+
+            fc.style['display']= 'block';
+            fcf.style['display']= 'block';
+
+            fc.style['-webkit-backface-visibility']= 'hidden';
+            fcf.style['-webkit-backface-visibility']= 'hidden';
+
+            // copy selected node.
+            copyChildNodes( node, fcf );
+
+            if ( !isCSSTransitionsEnabled ) {
+                // La madre que pario a ff 3.5+
+                var jnode= $("#"+nodeName);
+                $("#flip_content_front").css( {
+                    "width": jnode.width()+"px",
+                    "height": jnode.height()+"px"
+                });
+            }
+            else {
+                fcf.setAttribute( "class", node.getAttribute("class") );
+            }
+
+            setup( nodeName, "flip_wrapper_front", "flip_content_front", 0, 1, 1, 1);
+
+            var sx= $("#flip_wrapper").width() / $("#flip_wrapper_front").width();
+            var sy= $("#flip_wrapper").height() / $("#flip_wrapper_front").height();
+
+            prevSX= sx;
+            prevSY= sy;
+
+            setup( nodeName, "flip_wrapper", "flip_content", 180, 1/sx, 1/sy,0);
+
+
+
+            var toff= $("#flip_wrapper").offset();
+            var ty=  ( $(window).height() - $("#flip_wrapper").height() ) / 2 +
+                    $(window).scrollTop() -
+                    toff.top +
+                    "px";
+            var tx=  ( $(window).width() - $("#flip_wrapper").width() ) / 2 -
+                    toff.left +
+                    $(window).scrollLeft() + "px";
+
+            var toffFront= $("#flip_wrapper_front").offset();
+            var txf= ( $(window).width() - $("#flip_wrapper_front").width() ) / 2 -
+                    (toffFront.left ) +
+                    $(window).scrollLeft() + "px";
+            var tyf=  ( $(window).height() - $("#flip_wrapper_front").height() ) / 2 +
+                    $(window).scrollTop() -
+                    toffFront.top +
+                    "px";
+
+            if (isCSSTransitionsEnabled) {
+                /**
+                 * if executed sequentially with previous code, animation won't run.
+                 */
+                setTimeout( function() {
+
+                    fc.style["-webkit-transition"]= "-webkit-transform "+time+"ms ease, opacity "+time+"ms linear";
+                    fc.style["-webkit-transform"]=  "translateX("+tx+") translateY("+ty+") "+
+                            (isCSS3DEnabled ? "rotateY(360deg)" : "")+
+                            " scaleX(1) scaleY(1)";
+
+                    fc.style.MozTransition= "-moz-transform "+time+"ms ease-in-out";
+                    fc.style.MozTransitionProperty= "all"
+                    fc.style.MozTransform= "translate("+tx+","+ty+") scaleX(1) scaleY(1)";
+
+                    fc.style.OTransition= "-o-transform "+time+"ms ease-in-out";
+                    fc.style.OTransitionProperty= "-o-transform, opacity"
+                    fc.style.OTransform= "translate("+tx+","+ty+") scaleX(1) scaleY(1)";
+
+                    fc.style.msTransition= "-ms-transform "+time+"ms ease-in-out";
+                    fc.style.msTransitionProperty= "all"
+                    fc.style.msTransform= "translate("+tx+","+ty+") scaleX(1) scaleY(1)";
+
+                    fc.style["opacity"]= 1;
+
+
+
+                    fcf.style["-webkit-transition"]= "-webkit-transform "+time+"ms ease, opacity "+time+"ms linear";
+                    fcf.style["-webkit-transform"]=
+                            "translate("+txf+","+tyf+") "+
+                            (isCSS3DEnabled ? "rotateY(180deg)" : "")+
+                            " scaleX("+sx+") scaleY("+sy+")";
+
+                    fcf.style.MozTransition= "-moz-transform "+time+"ms ease-in-out";
+                    fcf.style.MozTransitionProperty= "all"
+                    fcf.style.MozTransform= "translateX("+txf+") translateY("+tyf+") scaleX("+sx+") scaleY("+sy+")";
+
+                    fcf.style.OTransition= "-o-transform "+time+"ms ease-in-out";
+                    fcf.style.OTransitionProperty= "-o-transform, opacity"
+                    fcf.style.OTransform= "translateX("+txf+") translateY("+tyf+") scaleX("+sx+") scaleY("+sy+")";
+
+                    fcf.style.msTransition= "-ms-transform "+time+"ms ease-in-out";
+                    fcf.style.msTransitionProperty= "all"
+                    fcf.style.msTransform= "translateX("+txf+") translateY("+tyf+") scaleX("+sx+") scaleY("+sy+")";
+
+                    fcf.style["opacity"]= 0;
+                },50 );
+            } else {
+                setTimeout( function() {
+                    var _fw= $("#flip_content");
+                    var _fwf= $("#flip_content_front");
+
+
+                    var scale= Math.min(sx,sy);
+                    _fwf.animate( {
+                        'left': txf,
+                        'top':  tyf,
+                        'opacity':  0,
+                        'scale': scale
+                    },time);
+
+                    _fw.animate( {
+                        'left': tx,
+                        'top':  ty,
+                        'opacity': 1,
+                        'scale': 1
+                    },time);
+                }, 50 );
+            }
+
+            // hide front div. firefox routes input to opacity=0 elements.
+            setTimeout( function() {
+                fcf.style['display']= 'none';
+            }, time+50 );
+
+
+            document.body.style.overflow= 'hidden';
+            document.getElementById('curtain').style.display= 'block';
+        }
+    }
+
+    function unflip() {
+
+        var fc= document.getElementById('flip_content');
+        var fcf= document.getElementById('flip_content_front');
+
+        fc.style['display']= 'block';
+        fcf.style['display']= 'block';
+
+
+        if (isCSSTransitionsEnabled) {
+            setTimeout( function() {
+                fc.style.opacity= 0;
+                fc.style["-webkit-transform"]=
+                        (isCSS3DEnabled ? "rotateY(180deg)" : "")+
+                        " scaleX("+1/prevSX+") scaleY("+1/prevSY+")";
+                fcf.style.opacity= 1;
+                fcf.style["-webkit-transform"]= (isCSS3DEnabled ? "rotateY(0deg)" : "");
+
+                fc.style.MozTransform=  "scaleX("+1/prevSX+") scaleY("+1/prevSY+")";
+                fcf.style.MozTransform= "scaleX(1) scaleY(1)";
+
+                fc.style.OTransform=    "scaleX("+1/prevSX+") scaleY("+1/prevSY+")";
+                fcf.style.OTransform=   "scaleX(1) scaleY(1)";
+
+                fc.style.msTransform=   "scaleX("+1/prevSX+") scaleY("+1/prevSY+")";
+                fcf.style.msTransform=  "scaleX(1) scaleY(1)";
+            },50 );
+        } else {
+            setTimeout( function() {
+
+                var fcf= $("#flip_content_front");
+                var fc=  $("#flip_content");
+
+                fcf.css( {
+                    'opacity': 0,
+                    'scale': 1
+                });
+                fcf.animate( {
+                    'left' : '0px',
+                    'top' : '0px',
+                    'opacity': 1,
+                    'scale': 1
+                },time );
+
+                var scale= 1/Math.min(prevSX,prevSY);
+                fc.css( {
+                    'opacity': 1,
+                    'scale': scale
+                });
+                fc.animate( {
+                    'left' : '0px',
+                    'top' : '0px',
+                    'opacity': 0,
+                    'scale': scale
+                },time );
+
+            }, 50 );
+        }
+
+        setTimeout( function() {
+            fc.style['display']= 'none';
+            fcf.style['display']= 'none';
+            document.body.style.overflow= 'auto';
+        }, time+50 );
+
+        document.getElementById('curtain').style.display= 'none';
+
+    }
+
+    function setup(node,fw,fc,angle,sx,sy,opacity) {
+
+        node= $("#"+node);
+        var pos =   node.offset();
+        var width = node.innerWidth();
+        var height= node.innerHeight();
+
+        fw= $("#"+fw);
+        var width2 = fw.innerWidth();
+        var height2= fw.innerHeight();
+
+        var x,y;
+        x= pos.left + (width-width2)/2;
+        y= pos.top  + (height-height2)/2;
+
+        if (isCSSTransitionsEnabled) {
+            //show the menu directly over the placeholder
+            fc= document.getElementById(fc);
+
+            fc.style["-webkit-transition"]= "all 0s ease";
+            fc.style["-webkit-transform"]=
+                    (isCSS3DEnabled ? "rotateY("+angle+"deg)" : "")+
+                    " scaleX("+sx+") scaleY("+sy+")";
+
+            fc.style.MozTransition=    "all 0s ease";
+            fc.style.MozTransform=     "scaleX("+sx+") scaleY("+sy+")";
+
+            fc.style.OTransition=    "all 0s ease";
+            fc.style.OTransform=     "scaleX("+sx+") scaleY("+sy+")";
+
+            fc.style.msTransition=    "all 0s ease";
+            fc.style.msTransform=     "scaleX("+sx+") scaleY("+sy+")";
+
+            fc.style["opacity"]= opacity;
+
+        } else {
+            fc= $("#"+fc);
+            var scale= Math.min(sx,sy);
+            fc.css( {
+                "left" : "0px",
+                "top"  : "0px",
+                'scale': scale,
+                'opacity': opacity
+            },0);
+        }
+
+        fw.css( {
+            "left":     x + "px",
+            "top":      y + "px",
+            "display":"block"
+            });
+    }
+
+</script>
+
+</body>
+</html>

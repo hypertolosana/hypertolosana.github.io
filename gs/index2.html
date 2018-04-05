@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body style="margin:0; padding:0;">
+
+<script>
+    window.N = 14000;
+</script>
+<script src="src/stats.js"></script>
+
+<script src="src/namespace.js"></script>
+
+<script src="src/math/Matrix3.js"></script>
+
+<script src="src/keyframing/Interpolator.js"></script>
+<script src="src/keyframing/Behavior.js"></script>
+<script src="src/keyframing/PropertyBehavior.js"></script>
+<script src="src/keyframing/ColorBehavior.js"></script>
+<script src="src/keyframing/AlphaBehavior.js"></script>
+
+<script src="src/renderer/WebGLUtils.js"></script>
+<script src="src/renderer/WebGLShaderProgram.js"></script>
+<script src="src/renderer/WebGLTextureShaderProgram.js"></script>
+<script src="src/renderer/WebGLColorShaderProgram.js"></script>
+<script src="src/renderer/RendererWebGL.js"></script>
+<script src="src/renderer/WebGLContext.js"></script>
+<script src="src/renderer/RendererCanvas.js"></script>
+
+<script src="src/display/Actor.js"></script>
+<script src="src/display/ActorContainer.js"></script>
+<script src="src/display/Scene.js"></script>
+<script src="src/display/Sprite.js"></script>
+<script src="src/display/SpriteImage.js"></script>
+<script src="src/display/SpriteImageData.js"></script>
+<script>
+
+
+    var stats = new Stats();
+    document.body.appendChild(stats.domElement);
+    stats.domElement.style.position = "absolute";
+    stats.domElement.style.top = "0px";
+    stats.domElement.style.right = "0px";
+
+
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+
+    var img = new Image();
+    img.onload = function () {
+
+        var si = new GS.SpriteImage(img).
+                createWithRowsAndColumns(
+                21,
+                7,
+                function (r, c) {
+                    return 'si' + (r * 7 + c);
+                }
+        );
+
+
+        var scene = new GS.Scene().
+                setBounds(0, 0, W, H).
+                setColor(0, 0, 1, 0);
+
+        var actors = [];
+
+
+        for (var i = 0; i < N; i++) {
+//            var actor = new GS.Actor().setBounds(W / 2, H / 2, 32, 32);
+//            actor.setSpriteImageData(si.getImageData("si" + (i % si.getElementCount())), true);
+            //actor.setAlpha(Math.random());
+            var actor = new GS.Sprite().addAnimation(
+                    "walk",
+                    si,
+                    //[122,121,120,119, 118,117,116,115,114,113,112, 111,110,109,108,107,106,105, 104,103,102,101,100,99,98, 97,96]
+                    //[123,124,125, 126,127,128,129,130,131,132, 133,134,135,136,137,138,139, 140,141,142,143,144]
+                    [74, 75, 76, 77, 78, 79, 80, 81]
+                    //[0,1,2,3,4,5,6,7]
+            );
+            actor.playAnimation("walk", 50, function () {
+
+            });
+            actor.setBounds(W / 2, H / 2, 29, 32);
+            //actor.setColor(Math.random(), Math.random(), Math.random(), Math.random());
+
+            scene.addActor(actor);
+            actors.push(actor);
+            var v = Math.random() * 2;
+            actor.velX = v * Math.cos(i / (N % 512) * Math.PI);
+            actor.velY = v * Math.sin(i / (N % 512) * Math.PI);
+
+            actor.setRotation(i * Math.PI / 1000);
+        }
+
+
+        /*
+         var rendererc= new GS.RendererCanvas();
+         rendererc.initialize(W,H);
+         rendererc.addImage(can);
+         document.body.appendChild( rendererc._surface );
+         */
+        var renderer = new GS.RendererWebGL();
+        renderer.initialize(W, H);
+        renderer.addImage(si);
+
+        document.body.appendChild(renderer._surface);
+
+
+        function f1(tt) {
+
+            for (var i = 0; i < actors.length; ++i) {
+                var a = actors[i];
+
+                a.x += a.velX;
+                a.y += a.velY;
+
+                if (a.x > W || a.x < 0) {
+                    a.velX = -a.velX;
+                }
+                if (a.y > H || a.y < 0) {
+                    a.velY = -a.velY;
+                }
+
+                a.setRotation((tt % 3000) / 3000 * 2 * Math.PI);
+            }
+
+        }
+
+        renderer.getContext().addFrameBuffer("ibon");
+        var si = renderer.getContext().getFrameBufferSpriteImage("ibon");
+        si.createWithRowsAndColumns(4, 4, function (r, c) {
+            return "i" + (r * 4 + c);
+        }, {
+            width: W,
+            height: H
+        });
+        var scene2 = new GS.Scene().
+                setBounds(0, 0, W, H);
+
+        var actors2 = [];
+//        scene2.setSpriteImageData( si.getImageData('image'), false );
+
+        var sbx = new GS.PropertyBehavior('scaleX', 1, 3, 0, 3000).setRepeatForever().setInterpolator(new GS.Interpolator.ElasticOutInterpolator(1.2, .4, false));
+        var sby = new GS.PropertyBehavior('scaleY', 1, 2, 0, 3000).setRepeatForever().setInterpolator(new GS.Interpolator.ElasticOutInterpolator(1.1, .2, false));
+
+
+        for (var i = 0; i < 4; i++) {
+            for (var j = 0; j < 4; j++) {
+                var actor = new GS.Actor().setBounds(j * (W / 4), i * (H / 4), W / 4, H / 4);
+                actor.setColor(Math.random(), Math.random(), Math.random(), 1);
+                actor.setPositionAnchor(0, 0);
+                actor.setSpriteImageData(si.getImageData("i" + (j + i * 4)), false);
+                var v = new GS.PropertyBehavior('rotationAngle', 0, (Math.random() < .5 ? 1 : -1) * 2 * Math.PI, 0, 2000 + (Math.random() * 15000));
+                if (j !== 1) {
+                    v.setRepeatForever()
+                } else {
+                    v.setRepeatTimes(1);
+                }
+                actor.addBehavior(v);
+                actors2.push(actor);
+                scene2.addActor(actor);
+            }
+        }
+
+        actors2[4].addBehavior(new GS.ColorBehavior(1, 0, 0, 0, 1, 0, 0, 5000).setRepeatForever());
+        actors2[8].addBehavior(new GS.AlphaBehavior(1, 0, 0, 5000).setRepeatForever().setInterpolator(new GS.Interpolator.LinearInterpolator(true, false)));
+
+//        actors2[5].addBehavior(rb);
+//        actors2[6].addBehavior(sbx);
+//        actors2[6].addBehavior(sby);
+
+
+        function f(perf) {
+
+            var elapsed = 0;
+            if (typeof perf === "undefined") {
+                perf = new Date.getTime();
+                elapsed = perf - t;
+                t = perf;
+            } else {
+                elapsed = perf - tperf;
+                tperf = perf;
+            }
+
+
+            stats.begin();
+
+            renderer.getContext().enableFrameBuffer("ibon");
+            renderer.render(scene, elapsed);
+
+            renderer.getContext().enableFrameBuffer(null);
+            renderer.render(scene2, elapsed);
+
+            f1(scene._time);
+
+
+            window.requestAnimationFrame(f, null);
+
+            stats.end();
+        }
+
+        setTimeout(function () {
+            setInterval(function () {
+                for (var i = 0; i < actors2.length; i++) {
+                    actors2[i].resumeAllBehaviors();
+                }
+
+            }, 10000);
+        }, 5000);
+        setInterval(function () {
+            for (var i = 0; i < actors2.length; i++) {
+                actors2[i].pauseAllBehaviors();
+            }
+        }, 10000);
+
+        window.requestAnimationFrame(f, null);
+        var t = new Date().getTime();
+        var tperf = 0;
+    };
+
+    img.src = 'res/dude.png';
+
+</script>
+</body>
+</html>

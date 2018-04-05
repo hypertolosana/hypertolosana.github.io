@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+
+    <style>
+.root {
+    width: 320px;
+    height: 600px;
+    position: relative;
+    margin: 0 auto;
+    -webkit-perspective: 800;
+    -webkit-perspective-origin: 50% 50%;
+    -webkit-transform-style: preserve-3d;
+}
+
+.tiler {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    -webkit-transition: -webkit-transform 1s ease;
+    -webkit-transform-style: preserve-3d;
+}
+
+.controls {
+    width: 680px;
+    height: 90px;
+    left: 10px;
+    top: 10px;
+    margin: 5px;
+    padding: 10px;
+    background: rgba(64, 64, 255, .25);
+    -webkit-border-radius: 20px;
+    position: relative;
+}
+
+.control {
+    font-size: 14px;
+    line-height: 1em;
+    font-family: Georgia;
+    color: #000;
+    text-shadow: rgba(0, 0, 0, 0.4) 0 0 5px;
+    width: 150px;
+    padding: 5px;
+}
+
+.controls p {
+    font-size: 11px;
+    line-height: 1.2em;
+    font-family: Georgia;
+    color: #222;
+    width: 100%;
+}
+
+.paginator {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 10px 0 !important;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.paginator li {
+    text-indent: 10000px;
+    height: 8px;
+    width: 8px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 0.5em;
+}
+
+.middle {
+    font: 1em Verdana, Arial, Geneva, Helvetica, sans-serif;
+    position: absolute;
+    text-align: center;
+    top: 20px;
+    left: 30px;
+}
+
+.current-page {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.not-current-page {
+    background: rgba(0, 0, 0, 0.4);
+}
+    </style>
+
+</head>
+<body bgcolor="#fff">
+
+<div>
+    <div>
+        <div class="root">
+            <div id="tiler" class="tiler">
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor1.jpg'>
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor2.jpg'>
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor3.jpg'>
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor4.jpg'>
+                <img src='http://labs.hyperandroid.com/wp-content/uploads/2011/04/flor5.jpg'>
+            </div>
+        </div>
+        <div>
+            <ul id='paginator' class="paginator">
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="controls">
+        <span class="control" style="position:absolute; left:30px;">
+            <div>Max rows</div>
+            <div>
+                <span><input type="range" min="1" max="32" step="1" value="12" onchange="setPref('rows',this.value,'rows');"></span>
+                <span id="rows">12</span>
+            </div>
+        </span>
+        <span class="control" style="position:absolute; left:195px;">
+            <div>Max columns</div>
+            <div>
+                <span><input type="range" min="1" max="32" step="1" value="12" onchange="setPref('columns',this.value,'columns');"></span>
+                <span id="columns">12</span>
+            </div>
+        </span>
+        <span class="control" style="position:absolute; left:370px;">
+            <div><span>Tile rotation: </span><span id="tilerotationtime">2500</span><span>ms</span></div>
+            <div>
+                <span><input type="range" min="500" max="5000" step="250" value="2500" onchange="setPref('tileRotationTime',this.value,'tilerotationtime');"></span>
+            </div>
+        </span>
+        <span class="control" style="position:absolute; left:545px;">
+            <div><span>Tile delay: </span><span id="tiledelay">50</span><span>ms</span></div>
+            <div>
+                <span><input type="range" min="25" max="200" step="25" value="50" onchange="setPref('tileDelay',this.value,'tiledelay');"></span>
+            </div>
+        </span>
+        <span class="control" style="position:absolute; top:65px; left:30px;">
+            <div>Second Axis rotation</div>
+            <div>
+                <select name="secondaxis" onchange="setPref('secondAxisRotation',this.value,null);">
+                    <option value="random" selected>Random</option>
+                    <option value="horizontal">Horizontal</option>
+                    <option value="vertical">Vertical</option>
+                    <option value="both">Both</option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+        </span>
+        <span class="control" style="position:absolute; top:65px; left:195px;">
+            <div>Tile rotation style</div>
+            <div>
+                <select name="tileaxis" onchange="setPref('tileRotationStyle', this.value, null);">
+                    <option value="random" selected>Random</option>
+                    <option value="horizontal">Horizontal</option>
+                    <option value="vertical">Vertical</option>
+                    <option value="both">Both</option>
+                    <option value="both-2">Both 2</option>
+                    <option value="any">Any</option>
+
+                </select>
+            </div>
+        </span>
+        <span class="control" style="position:absolute; top:65px; left:370px;">
+            <div>
+                <span><input type="checkbox" checked onchange="setAutoRun();"></span><span>Auto run</span>
+            </div>
+        </span>
+    </div>
+
+
+
+
+
+
+        <div>
+            <p>
+                This experiment will only work properly on <b>Safari 5+</b> or <b>Chrome/Chromium 11/12.</b>
+                Other browsers won't be able to show it properly due to the lack of CSS3 3D transformations and/or
+                CSS3 transitions.
+            </p>
+            <p>
+                Use <b>cursor keys</b> to zoom/rotate the tiler grid.
+            </p>
+            <p>
+                Set <b>'Second Axis Rotation'</b> to <b>'none'</b> to make tiler behave exactly as my other experiment CSS3 Mosaic.
+            </p>
+            <p>
+                Tiler will randomly divide the image into flying tiles. I've set the maximum possible values to be 12x12.
+                Modify the rows and columns value to set up to 32x32 maximum tiles.
+            </p>
+        </div>
+        <div>
+            <span>
+                <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="hyperandroid">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            </span>
+            <span>
+                <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Flabs.hyperandroid.com/CSS3Tiler&amp;layout=button_count&amp;show_faces=false&amp;width=120&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+            </span>
+        </div>
+
+
+<script type="text/javascript" src="modernizr.js"></script>
+<script type="text/javascript" src="tiler.js"></script>
+<script type="text/javascript" src="tilerDom.js"></script>
+
+</body>
+</html>

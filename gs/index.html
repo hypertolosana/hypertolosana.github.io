@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body style="margin:0; padding:0;">
+
+<script>
+    window.N = 14000;
+</script>
+<script src="src/stats.js"></script>
+
+<script src="src/namespace.js"></script>
+
+<script src="src/math/Matrix3.js"></script>
+
+<script src="src/renderer/WebGLUtils.js"></script>
+<script src="src/renderer/WebGLShaderProgram.js"></script>
+<script src="src/renderer/WebGLTextureShaderProgram.js"></script>
+<script src="src/renderer/WebGLColorShaderProgram.js"></script>
+<script src="src/renderer/RendererWebGL.js"></script>
+<script src="src/renderer/WebGLContext.js"></script>
+<script src="src/renderer/RendererCanvas.js"></script>
+
+<script src="src/display/Actor.js"></script>
+<script src="src/display/ActorContainer.js"></script>
+<script src="src/display/Scene.js"></script>
+<script src="src/display/Sprite.js"></script>
+<script src="src/display/SpriteImage.js"></script>
+<script src="src/display/SpriteImageData.js"></script>
+<script>
+
+
+    var stats = new Stats();
+    document.body.appendChild(stats.domElement);
+    stats.domElement.style.position = "absolute";
+    stats.domElement.style.top = "0px";
+    stats.domElement.style.right = "0px";
+
+
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+
+    var img= new Image();
+    img.onload = function () {
+
+        var si = new GS.SpriteImage(img).
+            createWithRowsAndColumns(
+                21,
+                7,
+                function (r, c) {
+                    return 'si' + (r * 7 + c);
+                }
+            );
+
+
+        var scene = new GS.Scene().
+                setBounds(0, 0, W, H).
+                setColor( 0, 0, 1, 1 );
+
+        var actors = [];
+
+
+        for (var i = 0; i < N; i++) {
+//            var actor = new GS.Actor().setBounds(W / 2, H / 2, 32, 32);
+//            actor.setSpriteImageData(si.getImageData("si" + (i % si.getElementCount())), true);
+            //actor.setAlpha(Math.random());
+            var actor= new GS.Sprite().addAnimation(
+                    "walk",
+                    si,
+                    //[122,121,120,119, 118,117,116,115,114,113,112, 111,110,109,108,107,106,105, 104,103,102,101,100,99,98, 97,96]
+                    //[123,124,125, 126,127,128,129,130,131,132, 133,134,135,136,137,138,139, 140,141,142,143,144]
+                    [74,75,76, 77,78,79,80,81]
+                    //[0,1,2,3,4,5,6,7]
+                    );
+            actor.playAnimation("walk", 50, function() {
+
+            });
+            actor.setBounds( W/2, H/2, 29, 32 );
+            actor.setColor( Math.random(), Math.random(), Math.random(), Math.random() );
+
+            scene.addActor(actor);
+            actors.push(actor);
+            var v = Math.random() * 2;
+            actor.velX = v * Math.cos(i / (N % 512) * Math.PI);
+            actor.velY = v * Math.sin(i / (N % 512) * Math.PI);
+
+            actor.setRotation(i * Math.PI / 1000);
+        }
+
+
+        /*
+         var rendererc= new GS.RendererCanvas();
+         rendererc.initialize(W,H);
+         rendererc.addImage(can);
+         document.body.appendChild( rendererc._surface );
+         */
+        var renderer = new GS.RendererWebGL();
+        renderer.initialize(W, H);
+        renderer.addImage(si);
+        document.body.appendChild(renderer._surface);
+
+
+        function f1(tt) {
+
+            for (var i = 0; i < actors.length; ++i) {
+                var a = actors[i];
+
+                a.x += a.velX;
+                a.y += a.velY;
+
+                if (a.x > W || a.x < 0) {
+                    a.velX = -a.velX;
+                }
+                if (a.y > H || a.y < 0) {
+                    a.velY = -a.velY;
+                }
+
+                a.setRotation((tt % 3000) / 3000 * 2 * Math.PI);
+                //a.setScale( (tt%10000)/10000+1, (tt%10000)/10000+1  );
+            }
+
+        }
+
+        function f( perf ) {
+
+            var elapsed= 0;
+            if (typeof perf==="undefined") {
+                perf= new Date.getTime();
+                elapsed= perf-t;
+                t= perf;
+            } else {
+                elapsed= perf-tperf;
+                tperf= perf;
+            }
+
+
+            stats.begin();
+
+            renderer.render(scene, elapsed);
+            f1( scene._time );
+
+            window.requestAnimationFrame(f, null);
+
+            stats.end();
+        }
+
+        window.requestAnimationFrame(f, null);
+        var t = new Date().getTime();
+        var tperf= 0;
+    };
+
+    img.src= 'res/dude.png';
+
+</script>
+</body>
+</html>

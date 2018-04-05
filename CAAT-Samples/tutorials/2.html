@@ -1,0 +1,432 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tutorial 3 - Animable elements</title>
+
+<script type="text/javascript" src="sh/shCore.js"></script>
+<script type="text/javascript" src="sh/shBrushJScript.js"></script>
+<link href="sh/shCore.css" rel="stylesheet" type="text/css" />
+<link href="sh/shThemeDefault.css" rel="stylesheet" type="text/css" />    
+
+<script type="text/javascript" src="../../build/caat.js"></script>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+    
+<style>
+    div.code {
+       font-size: .7em;
+    }
+    div.APIENTRY {
+        background-color: #f0f0f0;
+    }
+</style>
+
+</head>
+
+
+<body style="color:black; background:#ffffff;">
+
+
+
+
+
+
+<div class="section">
+    <h1>CAAT.TextActor</h1>
+    <p>CAAT can show text by exposing the TextActor class.</p>
+    <p>A text is defined, as in a Canvas rendering context, by the font, text alignment and text base line. As any
+    CAAT Actor, the developer can define any valid Canvas rendering context fillStyle, like colors, gradients,
+    other Canvas objects, or a Video object in example, and any valid stroke style</p>
+    <p><b>In CAAT, neither textAlign nor textBaseline should be used.</b></p>
+    <p>A TextActor can be modified by the following methods:</p>
+    <div class="APIENTRY">
+        <p><b>function setOutline( boolean )</b></p>
+        <p>Makes the text to be outlined or not.</p>
+    </div>
+    <div class="APIENTRY">
+        <p><b>function setOutlineColor( color )</b></p>
+        <p>Sets outline color.</p>
+    </div>
+    <div class="APIENTRY">
+        <p><b>function setFill( boolean )</b></p>
+        <p>Makes the text to be filled or not.</p>
+    </div>
+    <div class="APIENTRY">
+        <p><b>function setPath( path, interpolator, time )</b></p>
+        <p>Makes the text to travel around a path.</p>
+        <p>Interpolator can be undefined, leading to a default LinearInterpolator.</p>
+        <p>Time can be undefined, leading to a default ten seconds to traverse.</p>
+    </div>
+
+
+    <p>As any other actor, a TextActor will be modified by behaviors.</p>
+    <div class="code">
+        <pre class="brush: js; auto-links: false; toolbar: false;">
+                var _director_7= new CAAT.Director().initialize(
+                        700,
+                        200,
+                        document.getElementById('_c7')
+                        );
+
+                var _scene_7= _director_7.createScene();
+
+                // create a vertical gradient to apply to text.
+                var gradient_top= _director_7.ctx.createLinearGradient(0,0,0,40);
+                gradient_top.addColorStop(0,'#ffff00');
+                gradient_top.addColorStop(0.5,'#00ffff');
+                gradient_top.addColorStop(1,'blue');
+
+                // outline text. no fillStyle since the text will just be outlined.
+                var _text_00= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setBaseline("top").
+                        setFill(false).
+                        setLocation( 0, 30 ).
+                        calcTextSize(_director_7).
+                        cacheAsBitmap();
+
+                // gradient text.
+                var _text_01= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setFillStyle(gradient_top).
+                        setBaseline("top").
+                        setLocation( 0, 80 ).
+                        calcTextSize(_director_7).
+                        cacheAsBitmap();
+
+                // gradient + outlined.
+                var _text_02= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setFillStyle(gradient_top).
+                        setBaseline("top").
+                        setOutline(true).
+                        setOutlineColor('blue').
+                        setLocation( 0, 130 ).
+                        calcTextSize(_director_7).
+                        cacheAsBitmap();
+
+                _scene_7.addChild(_text_00);
+                _scene_7.addChild(_text_01);
+                _scene_7.addChild(_text_02);
+
+                // a simple TextActor
+                var _text_10= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setFillStyle(gradient_top).
+                        setBaseline("top").
+                        setOutline(true).
+                        setOutlineColor('yellow').
+                        setLocation( 200,80 ).
+                        calcTextSize(_director_7).
+                        cacheAsBitmap();
+
+                // rotate in 3 seconds
+                var _text_00_rb= new CAAT.RotateBehavior().
+                        setAngles(0, 2*Math.PI).
+                        setFrameTime( 0, 3000 ).
+                        setCycle(true);
+
+                // scale in 6 seconds doing pingpong
+                var _text_00_sb= new CAAT.ScaleBehavior().
+                        setValues( .5, 2, .5, 2 ).
+                        setFrameTime( 0, 6000 ).
+                        setCycle(true).
+                        setPingPong();
+
+                _text_10.addBehavior( _text_00_rb );
+                _text_10.addBehavior( _text_00_sb );
+                _scene_7.addChild( _text_10 );
+
+
+                // create a circular path.
+                var _path_c7= new CAAT.Path().
+                    beginPath(425,100).
+                    addCubicTo( 425,0,   625,0,   625,100 ).
+                    addCubicTo( 625,200,  425,200,  425,100 ).
+                    endPath();
+
+                // set an actor to be able to handle path.
+                var _pathactor_c7= new CAAT.PathActor().
+                        setBounds(0,0,_director_7.width,_director_7.height).
+                        setPath(_path_c7);
+                _scene_7.addChild( _pathactor_c7 );
+
+                // make text traverse over the path
+                var _text_20= new CAAT.TextActor().
+                        setFont("30px sans-serif").
+                        setText("CAAT").
+                        setFillStyle('green').
+                        setBaseline("bottom").      // over the path
+                        setOutline(true).
+                        setOutlineColor('red').
+                        calcTextSize(_director_7).
+                        setPath(_path_c7);          // traverse the path with defaults.
+                _scene_7.addChild( _text_20 );
+
+                // make text traverse under the path
+                var _text_21= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setFillStyle(gradient_top).
+                        setBaseline("top").         // under path
+                        setOutline(true).
+                        setOutlineColor('red').
+                        calcTextSize(_director_7).
+                        setPath( _path_c7,
+                                 new CAAT.Interpolator().createBounceInOutInterpolator(1.1, .4),
+                                 20000 );
+                _scene_7.addChild( _text_21 );
+
+                CAAT.loop(20);
+        </pre>
+    </div>
+    <div>
+        <canvas id="_c7"></canvas></div>
+        <script>
+            (function() {
+
+                var _director_7= new CAAT.Director().initialize(
+                        700,
+                        200,
+                        document.getElementById('_c7')
+                        );
+
+                var _scene_7= _director_7.createScene();
+
+                // create a vertical gradient to apply to text.
+                var gradient_top= _director_7.ctx.createLinearGradient(0,0,0,40);
+                gradient_top.addColorStop(0,'#ffff00');
+                gradient_top.addColorStop(0.5,'#00ffff');
+                gradient_top.addColorStop(1,'blue');
+
+                // outline text. no fillStyle since the text will just be outlined.
+                var _text_00= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setBaseline("top").
+                        setFill(false).
+                        setLocation( 0, 30 ).
+                        calcTextSize(_director_7).
+                        cacheAsBitmap();
+
+                // gradient text.
+                var _text_01= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setFillStyle(gradient_top).
+                        setBaseline("top").
+                        setLocation( 0, 80 ).
+                        calcTextSize(_director_7).
+                        cacheAsBitmap();
+
+                // gradient + outlined.
+                var _text_02= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setFillStyle(gradient_top).
+                        setBaseline("top").
+                        setOutline(true).
+                        setOutlineColor('blue').
+                        setLocation( 0, 130 ).
+                        calcTextSize(_director_7).
+                        cacheAsBitmap();
+
+                _scene_7.addChild(_text_00);
+                _scene_7.addChild(_text_01);
+                _scene_7.addChild(_text_02);
+
+                // a simple TextActor
+                var _text_10= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setFillStyle(gradient_top).
+                        setBaseline("top").
+                        setOutline(true).
+                        setOutlineColor('yellow').
+                        setLocation( 200,80 ).
+                        calcTextSize(_director_7).
+                        cacheAsBitmap();
+
+                // rotate in 3 seconds
+                var _text_00_rb= new CAAT.RotateBehavior().
+                        setAngles(0, 2*Math.PI).
+                        setFrameTime( 0, 3000 ).
+                        setCycle(true);
+
+                // scale in 6 seconds doing pingpong
+                var _text_00_sb= new CAAT.ScaleBehavior().
+                        setValues( .5, 2, .5, 2 ).
+                        setFrameTime( 0, 6000 ).
+                        setCycle(true).
+                        setPingPong();
+
+                _text_10.addBehavior( _text_00_rb );
+                _text_10.addBehavior( _text_00_sb );
+                _scene_7.addChild( _text_10 );
+
+
+                // create a circular path.
+                var _path_c7= new CAAT.Path().
+                    beginPath(425,100).
+                    addCubicTo( 425,0,   625,0,   625,100 ).
+                    addCubicTo( 625,200,  425,200,  425,100 ).
+                    endPath();
+
+                // set an actor to be able to handle path.
+                var _pathactor_c7= new CAAT.PathActor().
+                        setBounds(0,0,_director_7.width,_director_7.height).
+                        setPath(_path_c7);
+                _scene_7.addChild( _pathactor_c7 );
+
+                // make text traverse over the path
+                var _text_20= new CAAT.TextActor().
+                        setFont("30px sans-serif").
+                        setText("CAAT").
+                        setFillStyle('green').
+                        setBaseline("bottom").      // over the path
+                        setOutline(true).
+                        setOutlineColor('red').
+                        calcTextSize(_director_7).
+                        setPath(_path_c7);          // traverse the path with defaults.
+                _scene_7.addChild( _text_20 );
+
+                // make text traverse under the path
+                var _text_21= new CAAT.TextActor().
+                        setFont("40px sans-serif").
+                        setText("CAAT").
+                        setFillStyle(gradient_top).
+                        setBaseline("top").         // under path
+                        setOutline(true).
+                        setOutlineColor('red').
+                        calcTextSize(_director_7).
+                        setPath( _path_c7,
+                                 new CAAT.Interpolator().createBounceInOutInterpolator(1.1, .4),
+                                 20000 );
+                _scene_7.addChild( _text_21 );
+
+                CAAT.loop(20);
+            })();
+        </script>
+    </div>
+
+
+
+<div class="section">
+    <h1>Defining custom actors</h1>
+    <p>
+        The cycle of putting an Actor on screen for every Actor in Scene's frame time is as follows:
+    </p>
+    <ul>
+        <li>A call to the method animate(director, time). This method basically applies any Behavior registered for an
+        Actor.</li>
+        <li>If after applying the Behaviors an Actor is still in frame time, a call to the method paintActor(director, SceneTime)
+        is performed. This method sets an appropriate global alpha, prepares Actor's transformation matrix, clips the
+        canvas if set, etc.</li>
+        <li>paintActor, then calls the method paint(director,time) which finally executes the painting routine.</li>
+    </ul>
+    <p>
+        This method calls are automatically performed by the framework, starting from the Director and following every
+        running Scene on it in a recursive object orientes fashion. CAAT in fact, tries to be object oriented.
+        The Director object is in fact a special kind of ActorContainer, so it is the Scene object.
+    </p>
+    <p>
+        To define a new Actor type, the developer first must extend either CAAT.Actor or CAAT.ActorContainer as needed.
+        The extension mechanism is straightforward and performed like this:
+    </p>
+    <div class="code">
+        <pre class="brush: js; auto-links: false; toolbar: false;">
+
+                (function() {
+
+                    // constructor
+                    CAAT.NewActorType= function() {
+
+                        // must chain to superclass constructor:
+                        CAAT.newActorType.superclass.constructor.call(this);
+
+                        // perform other initialization code here.
+                        // better do it overriding create method.
+
+                        return this;
+                    };
+
+                    // extension
+                    extend( CAAT.NewActorType, CAAT.Actor, {
+                        // overriden methods/attributes go here.
+                    });
+                })();
+
+        </pre>
+    </div>
+    <p>
+        has the opportunity to override the methods
+    </p>
+    <ul>
+        <li>animate(director,time) to perform extra transformations or to avoid Behaviors at all. It is convenient to chain
+        the call to the previous animate method by issuing a call to</li>
+    <div class="code">
+        <pre class="brush: js; auto-links: false; toolbar: false;">
+            CAAT.NewActorType.superclass.method-to-override.call(
+                this,
+                overriden-method-parameter-list );
+        </pre>
+    </div>
+
+        <li>paint(director,time) to perform custom paint.</li>
+    </ul>
+    <p>
+        This is CAAT code to define the ShapeActor
+    </p>
+    <div class="code">
+        <pre class="brush: js; auto-links: false; toolbar: false;">
+
+                (function() {
+
+                    // constructor
+                    CAAT.ShapeActor = function() {
+
+                        // chain superclass constructor
+                        CAAT.ShapeActor.superclass.constructor.call(this);
+
+                        // extra initialization code
+                        this.compositeOp= 'source-over';
+                        return this;
+                    };
+
+                    // extension
+                    extend( CAAT.ShapeActor, CAAT.Actor, {
+
+                        // overriden paint method
+                        paint: function(director,time) {
+                            var ctx= director.crc;
+
+                            ctx.globalCompositeOperation= this.compositeOp;
+                            if ( null!=this.fillStyle ) {
+                                ...
+                                ctx.arc(
+                                        this.width/2,
+                                        this.height/2,
+                                        Math.min(this.width,this.height)/2,
+                                        0,
+                                        2*Math.PI,
+                                        false );
+                                ctx.fill();
+                            }
+                            ...
+                        }
+                    };
+                })();
+
+        </pre>
+    </div>
+</div>
+
+</body>
+</html>
