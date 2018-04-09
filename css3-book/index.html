@@ -1,0 +1,641 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CSS3 Book</title>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-17485141-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+
+</head>
+<body bgcolor="#fff" >
+
+    <!--start_raw-->
+    <script type="text/javascript" src="http://ludei.com/ioshtml5/caat.js"></script>
+    <style type="text/css"> 
+     
+    body {
+        font-family: "Lucida Grande"  !important;
+        margin:0;
+        padding:0;
+    }
+     
+    h1 {
+      color: #08087f !important;
+      text-shadow: white 0px 1px 0px, rgba(0, 0, 0, 0.4) 0 0 15px;
+    }
+     
+    h2 {
+      color: #08087f !important;
+      text-shadow: white 0px 1px 0px, rgba(0, 0, 0, 0.4) 0 0 10px;
+    }
+     
+    h3 {
+      color: #08087f !important;
+      text-shadow: white 0px 1px 0px, rgba(0, 0, 0, 0.4) 0 0 5px;
+    }
+     
+    .lomo {
+        color: #ffc000 !important;
+        text-shadow: rgba(0, 0, 0, 0.4) 0 0 5px;
+    }
+     
+    .titulo {
+        font-size: 40px;
+        line-height: 1em;
+        font-family: Georgia;
+    }
+     
+    .small {
+        font-size: 8px;
+        line-height: 1em;
+        font-family: Georgia;
+    }
+     
+     
+    .titulo2 {
+        font-size: 70px;
+        line-height: 1em;
+        font-family: Georgia;
+    }
+     
+     
+    .root {
+          height: 450px;
+          width:  800px;
+          position: relative;
+          margin: 0 auto ;
+          -webkit-perspective: 1500;
+          -webkit-perspective-origin: 50% 50%;
+            -webkit-transform: translateY(50px)
+        -webkit-transform-style: preserve-3d;
+        }
+     
+    #ring {
+          position: absolute;
+          width:  100%;
+          height: 100%;
+          margin: 0 auto;
+          -webkit-transition: -webkit-transform 1s ease;
+     
+          -webkit-transform-style: preserve-3d;
+    }
+     
+    #ring .sheet {
+          display: block;
+          position: absolute;
+          width:  800px;
+          height: 450px;
+          -webkit-transition: -webkit-transform 1s ease, opacity 1s linear;
+          -webkit-transform-style: preserve-3d;
+          -webkit-transform-origin: center bottom;
+        }
+     
+     
+    #ring .sheet .layer {
+          display: block;
+          position: absolute;
+          width:  100%;
+          height: 100%;
+          border-style: solid;
+          border-width: 0px;
+          border-color: #c0c0c0;
+     
+          background-color: rgba(240,240,240,0);
+          -webkit-transition: -webkit-transform 1s ease;
+          -webkit-transform-origin: center bottom;
+        
+        }
+     
+    #ring .sheet .floor {
+          display: block;
+          position: absolute;
+          width:  100%;
+          height: 100%;
+          background: url('http://ludei.com/ioshtml5/book/3.jpg');
+        -webkit-transition: -webkit-transform 1s ease;
+        -webkit-transform: rotateY(-180deg) ;
+        -webkit-transform-origin: center bottom;
+        }
+     
+     
+    #ring .sidebook {
+        display:block;
+        position:absolute;
+        width:450px;
+        height:50px;
+        border-style: none;
+        background: url('http://ludei.com/ioshtml5/book/hojas.png');
+        -webkit-transition: -webkit-transform 1s ease;
+    }
+     
+    #ring .frontbook {
+        display:block;
+        position:absolute;
+        width:100%;
+        height:50px;
+        border-style: none;
+        background: url('http://ludei.com/ioshtml5/book/hojas.png');
+        -webkit-transition: -webkit-transform 1s ease;
+    }
+     
+    #ring .titlebook {
+        display:block;
+        position:absolute;
+        width:100%;
+        height:50px;
+        border-style: none;
+        background: url('http://ludei.com/ioshtml5/book/lomo.jpg');
+        -webkit-transition: -webkit-transform 1s ease;
+    }
+     
+    #ring .backcoverbook {
+        display:block;
+        position:absolute;
+        width:100%;
+        height:100%;
+        border-style: none;
+        background: url('http://ludei.com/ioshtml5/book/portadalimpia.jpg');
+        -webkit-transition: -webkit-transform 1s ease;
+        -webkit-transform-origin: center bottom;
+    }
+     
+     
+    </style> 
+
+     
+    <div id='todo' style='width:1024px; height:768px; position:relative; float:left'> 
+        <div id="header" style="position:absolute; height:44px; padding:2px"> 
+            <div id='nav' style='width:30px; height:100%; position:absolute'> 
+                <div onclick="prevSheet(currentSheet-1);" style='background:url("http://ludei.com/ioshtml5/book/arriba.png"); position:absolute; top:30px; width:56px; height:54px'></div> 
+                <div onclick="nextSheet(currentSheet+1);" style='background:url("http://ludei.com/ioshtml5/book/abajo.png"); position:absolute; top:100px; width:56px; height:56px'></div> 
+     
+                <div onclick="portada();" style='background:url("http://ludei.com/ioshtml5/book/portada.png"); position:absolute; top:190px; width:56px; height:56px'></div> 
+                <div onclick="bio();"     style='background:url("http://ludei.com/ioshtml5/book/bio.png"); position:absolute; top:260px; width:56px; height:56px'></div> 
+                <div onclick="paginas();" style='background:url("http://ludei.com/ioshtml5/book/paginas.png"); position:absolute; top:330px; width:56px; height:56px'></div> 
+            </div> 
+        </div> 
+     
+        <div style="position:absolute; width:350px; left:60px"> 
+            <div id="map" style="height:30px; position:absolute; float:right"> 
+            </div> 
+            <div id="rotation" style="position:absolute; left: 400px; height: 40px;"> 
+                <div style="background:url('http://ludei.com/ioshtml5/book/xzm.png'); position:absolute; left:0px; width:40px; height:40px;" onclick="rotateXZ(true);"></div> 
+                <div style="background:url('http://ludei.com/ioshtml5/book/xzp.png'); position:absolute; left:50px; height:40px; width:40px;" onclick="rotateXZ(false);"></div> 
+                <div style="background:url('http://ludei.com/ioshtml5/book/yzm.png'); position:absolute; left:110px; height:40px; width:40px;" onclick="rotateYZ(true);"></div> 
+                <div style="background:url('http://ludei.com/ioshtml5/book/yzp.png'); position:absolute; left:160px; height:40px; width:40px;" onclick="rotateYZ(false);"></div> 
+            </div> 
+        </div> 
+        
+     
+        <div class="root"> 
+     
+            <div id="ring"> 
+                <div class="sidebook" id="bookleft"></div> 
+                <div class="sidebook" id="bookright"></div> 
+                <div class="frontbook" id="bookfront"></div> 
+                <div class="titlebook" id="booktitle"> 
+                    <div style="margin-left: 100px;"> 
+                        <h3 class="lomo">Nuevas posibilidades de HTML<sub>5</sub> en iOS</h3> 
+                    </div> 
+                </div> 
+                <div class="backcoverbook" id="bookbackcover"> 
+                    <div style="margin-left: 10px; width:450px"> 
+                        <h3 class="lomo">Ibon Tolosana</h3> 
+                        <h3 class="lomo">Juegon.com</h3> 
+                        <h3 class="lomo">Emprendedor.</h3> 
+                        <h3 class="lomo">Doer, Javascripter, Java fan</h3> 
+                        <h3 class="lomo">2 Hobbies: Paula e Irati.</h3> 
+                        <h3 class="lomo">@hyperandroid</h3> 
+                        <h3 class="lomo">http://labs.hyperandroid.com</h3> 
+                    </div> 
+                    <div style="margin-right:10px; margin-top:10px; position:absolute; top:0; right:0"> 
+                        <img style="-webkit-border-radius: 20px" src="http://ludei.com/ioshtml5/yo.png"> 
+                    </div> 
+                </div> 
+     
+                <!--
+                La primera hoja, es la portada, solo tiene suelo.
+                --> 
+                <div class='sheet'> 
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/portada.jpg'); position:absolute"> 
+                        <div style="position:absolute; left:225px; top:165px"> 
+                            <img src="http://ludei.com/ioshtml5/logo.png"> 
+                        </div> 
+                    </div> 
+                </div> 
+     
+     
+                <!-- quien usa --> 
+                <div class='sheet'> 
+                    <div class="layer" style="height:450px; background:url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                    <div class="layer" id='scene8' style="height:425px; overflow:hidden"> 
+                    </div> 
+     
+                    <div class="layer" style="height:400px; overflow:hidden"> 
+                        <div style="position:absolute; left:-30px; top:260px"><img src="http://ludei.com/ioshtml5/scene1/m3.png"></div> 
+                        <div style="position:absolute; left:10px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:650px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:680px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                    </div> 
+     
+                    <div class="layer" style="height:440px; position:absolute;"> 
+                        <div style="text-align:center"> 
+                            <h1 class="titulo">Movimientos hacia HTML<sub>5</sub></h1> 
+                        </div> 
+                    </div> 
+     
+                    <div class="layer" style="height:330px; position:absolute; margin-left:50px; width:350px"> 
+                        <div><img src="http://ludei.com/ioshtml5/res/zynga.png" ></div> 
+                        <div style="opacity:.6"><img src="http://ludei.com/ioshtml5/res/aves.png"></div> 
+                    </div> 
+     
+                    <div class="layer" style="height:300px; position:absolute; margin-left:450px; width:350px"> 
+                        <div><img src="http://ludei.com/ioshtml5/res/disney.png" ></div> 
+                        <div style="opacity:.6"><img src="http://ludei.com/ioshtml5/res/warimals.png"></div> 
+                    </div> 
+     
+                    <div class="layer" style="height:120px; position:absolute; margin-left:100px; width:350px"> 
+                        <div style="opacity:.8"><img src="http://ludei.com/ioshtml5/res/bigpoint.png" ></div> 
+                    </div> 
+     
+                    <div class="layer" style="height:150px; position:absolute; margin-left:600px; width:350px"> 
+                        <div style="opacity:.8"><img src="http://ludei.com/ioshtml5/res/ideateca.png" ></div> 
+                    </div> 
+     
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                </div> 
+     
+                <!-- fact #1 --> 
+                <div class='sheet'> 
+                    <div class="layer" style="height:450px; background:url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                    <!-- animation layer --> 
+                    <div class="layer" id='scene1' style="height:400px; overflow:hidden"> 
+                    </div> 
+     
+                    <!-- mountains --> 
+                    <div class="layer" style="height:350px; overflow:hidden"> 
+                        <div style="position:absolute; left:-30px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/m1.png"></div> 
+                        <div style="position:absolute; left:600px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/m2.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:320px; overflow:hidden"> 
+                        <div style="position:absolute; left:165px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/m2.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:320px; overflow:hidden"> 
+                        <div style="position:absolute; left:325px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/m3.png"></div> 
+                    </div> 
+     
+                    <!-- text --> 
+                    <div class="layer" style="height:300px;"> 
+                        <div style='text-align:center; padding-top:50px'> 
+                            <h1>"HTML is the only true cross platform solution for everything, including (Apple's) iOS platform."</h1> 
+                            <h3>Bob Muglia, President of Server and Tools Business for Microsoft</h3> 
+                        </div> 
+                    </div> 
+     
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+                </div> 
+     
+                <!-- fact #2 --> 
+                <div class='sheet'> 
+                    <div class="layer" style="height:450px; background:url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                    <div class="layer" id='scene2' style="height:400px; overflow:hidden"> 
+                    </div> 
+     
+                    <div class="layer" style="height:350px; overflow:hidden"> 
+                        <div style="position:absolute; left:30px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/m3.png"></div> 
+                        <div style="position:absolute; left:400px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/m1.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:320px; overflow:hidden"> 
+                        <div style="position:absolute; left:-30px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/m3.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:320px; overflow:hidden"> 
+                        <div style="position:absolute; left:625px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/m1.png"></div> 
+                    </div> 
+     
+     
+                    <div class="layer" style="height:350px;"> 
+                        <div style='text-align:center; padding-top:50px'> 
+                            <h1>"Every new Apple mobile device and every new Mac along with the latest version of Apple's Safari web browser supports web standards including HTML<sub>5</sub>, CSS3, and JavaScript."</h1> 
+                            <h3>Apple</h3> 
+                        </div> 
+                    </div> 
+     
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                </div> 
+     
+                <!-- Introduccion --> 
+                <div class='sheet'> 
+                    <div class="layer" style="height:450px; background:url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                    <div class="layer" id='scene3' style="height:425px; overflow:hidden"> 
+                    </div> 
+     
+                    <div class="layer" style="height:400px; overflow:hidden"> 
+                        <div style="position:absolute; left:-10px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                        <div style="position:absolute; left:650px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                    </div> 
+     
+                    <div class="layer" style="height:380px;"> 
+                        <div style='text-align:center;'> 
+                            <h1>HTML<sub>5</sub> + CSS3 + Javascript.</h1> 
+                        </div> 
+                    </div> 
+                    <div class="layer" style="height:310px;"> 
+                        <div style='text-align:center;'> 
+                            <h1>Javascript, es un lenguaje 'autorizado' para crear aplicaciones iOS.</h1> 
+                        </div> 
+                    </div> 
+                    <div class="layer" style="height:220px;"> 
+                        <div style='text-align:center;'> 
+                            <h1>HTML<sub>5</sub> status: Draft. Fin 2014 ?, 2022 ?</h1> 
+                        </div> 
+                    </div> 
+                    <div class="layer" style="height:150px;"> 
+                        <div style='text-align:center;'> 
+                            <h1>Diferentes grados de implementaci&oacute;n</h1> 
+                        </div> 
+                    </div> 
+     
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                </div> 
+     
+                <!-- caracteristicas I --> 
+                <div class='sheet'> 
+                    <div class="layer" style="height:450px; background:url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                    <div class="layer" id='scene4' style="height:425px; overflow:hidden"> 
+                    </div> 
+     
+                    <div class="layer" style="height:400px; overflow:hidden"> 
+                        <div style="position:absolute; left:-30px; top:260px"><img src="http://ludei.com/ioshtml5/scene1/m3.png"></div> 
+                        <div style="position:absolute; left:10px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:650px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:680px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:300px; overflow:hidden"> 
+                        <div style="position:absolute; left:-5px; top:110px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:640px; top:110px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:200px; overflow:hidden"> 
+                        <div style="position:absolute; left:40px; top:10px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                        <div style="position:absolute; left:610px; top:10px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                    </div> 
+     
+     
+                    <div class="layer" style="height:380px;"> 
+                        <div style='text-align:center;'> 
+                            <h1 class="titulo">Funcionalidades HTML<sub>5</sub></h1> 
+                        </div> 
+                    </div> 
+     
+     
+                    <div class="layer" style="height:300px;"> 
+                        <div style='text-align:center;'> 
+                            <h1>Geolocalizaci&oacute;n</h1> 
+                        </div> 
+                        <div style='text-align:center;'> 
+                            <h1>Audio/Video</h1> 
+                        </div> 
+                        <div style='text-align:center;'> 
+                            <h1>WebSockets</h1> 
+                        </div> 
+                        <div style='text-align:center;'> 
+                            <h1>WebWorkers</h1> 
+                        </div> 
+                        <div style='text-align:center;'> 
+                            <h1>Almacenamiento local</h1> 
+                        </div> 
+                    </div> 
+     
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                </div> 
+     
+                <!-- caracteristicas 2 --> 
+                <div class='sheet'> 
+                    <div class="layer" style="height:450px; background:url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                    <div class="layer" id='scene5' style="height:425px; overflow:hidden"> 
+                    </div> 
+     
+                    <div class="layer" style="height:400px; overflow:hidden"> 
+                        <div style="position:absolute; left:-30px; top:260px"><img src="http://ludei.com/ioshtml5/scene1/m2.png"></div> 
+                        <div style="position:absolute; left:650px; top:260px"><img src="http://ludei.com/ioshtml5/scene1/m1.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:380px; overflow:hidden"> 
+                        <div style="position:absolute; left:400px; top:240px"><img src="http://ludei.com/ioshtml5/scene1/m3.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:300px; overflow:hidden"> 
+                        <div style="position:absolute; left:40px; top:110px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:670px; top:110px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:200px; overflow:hidden"> 
+                        <div style="position:absolute; left:5px; top:10px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                        <div style="position:absolute; left:630px; top:10px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                    </div> 
+     
+     
+                    <div class="layer" style="height:380px;"> 
+                        <div style='text-align:center;'> 
+                            <h1 class="titulo">Funcionalidades HTML<sub>5</sub> (II)</h1> 
+                        </div> 
+                    </div> 
+     
+                    <div class="layer" style="height:270px;"> 
+                        <div style='text-align:center;'> 
+                            <h1>Aceler&oacute;metro</h1> 
+                        </div> 
+                        <div style='text-align:center;'> 
+                            <h1>CSS / CSS3</h1> 
+                        </div> 
+                        <div style='text-align:center;'> 
+                            <h1>Canvas + WebGL</h1> 
+                        </div> 
+                        <div style='text-align:center;'> 
+                            <h1>SVG</h1> 
+                        </div> 
+                    </div> 
+     
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                </div> 
+     
+                <!-- pros/cons --> 
+                <div class='sheet'> 
+                    <div class="layer" style="height:450px; background:url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                    <div class="layer" id='scene6' style="height:425px; overflow:hidden"> 
+                    </div> 
+     
+                    <div class="layer" style="height:400px; overflow:hidden"> 
+                        <div style="position:absolute; left:-30px; top:260px"><img src="http://ludei.com/ioshtml5/scene1/m2.png"></div> 
+                        <div style="position:absolute; left:650px; top:260px"><img src="http://ludei.com/ioshtml5/scene1/m1.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:380px; overflow:hidden"> 
+                        <div style="position:absolute; left:358px; top:260px"><img src="http://ludei.com/ioshtml5/scene1/m3.png"></div> 
+                    </div> 
+     
+                    <div class="layer" style="height:440px; position:absolute;"> 
+                            <div style='text-align:center;'> 
+                                <h1 class="titulo">Vs</h1> 
+                            </div> 
+     
+                    </div> 
+     
+                    <div class="layer" style="height:320px; position:absolute;"> 
+                        <div style="width:400px; position:absolute; top:-100px"> 
+                            <div style="text-align:center;"><h1 style="color:#007f00" class="titulo">Pros</h1></div> 
+                            <div style='text-align:center;'> 
+                                <h2>Libre de restricciones nativas<br> 
+                                    Sin instalaci&oacute;n<br> 
+                                    No ObjC + XCode<br> 
+                                    Sin fianza de desarrollador<br> 
+                                    Interoperabilidad<br> 
+                                    Aspecto nativo<br> 
+                                    Multiplataforma<br> 
+                                </h2> 
+                            </div> 
+                        </div> 
+                        <div style="width:400px; margin-left:400px; position:absolute; top:-100px"> 
+                            <div style="text-align:center;"><h1 style="color:#7f0000" class="titulo">Cons</h1></div> 
+                            <div style='text-align:center;'> 
+                                <h2>Caracter&iacute;sticas no accesibles<br> 
+                                    L&oacute;gica distribuida<br> 
+                                    Monetizaci&oacute;n<br> 
+                                    Compras InApp<br> 
+                                    Costes directos<br> 
+                                    No GameCenter, iAds...
+                                    </h2> 
+                            </div> 
+     
+                        </div> 
+                    </div> 
+     
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                </div> 
+     
+                <!-- ayudas --> 
+                <div class='sheet'> 
+                    <div class="layer" style="height:450px; background:url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                    <div class="layer" id='scene7' style="height:425px; overflow:hidden"> 
+                    </div> 
+     
+                    <div class="layer" style="height:420px; overflow:hidden"> 
+                        <div style="position:absolute; left:-10px; top:280px"><img src="http://ludei.com/ioshtml5/scene1/m2.png"></div> 
+                        <div style="position:absolute; left:600px; top:280px"><img src="http://ludei.com/ioshtml5/scene1/m1.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:380px; overflow:hidden"> 
+                        <div style="position:absolute; left:298px; top:280px"><img src="http://ludei.com/ioshtml5/scene1/m3.png"></div> 
+                    </div> 
+     
+                    <div class="layer" style="height:370px; position:absolute;"> 
+                        <div style="text-align:center"> 
+                            <h1 class="titulo">Toolkits, Frameworks y Bibliotecas</h1> 
+                        </div> 
+                    </div> 
+     
+                    <div class="layer" style="height:240px; position:absolute;"> 
+                        <div style="margin-left:100px; width:300px; position:absolute;"> 
+                            <div style="height:100px"><img src="http://ludei.com/ioshtml5/res/box2d.png" alt=""></div> 
+                        </div> 
+                        <div style="margin-left:400px; width:300px; position:absolute;"> 
+                            <div style="height:100px"><img src="http://ludei.com/ioshtml5/res/processing.png" alt=""></div> 
+                        </div> 
+                    </div> 
+                    <div class="layer" style="height:160px; position:absolute;"> 
+                        <div style="margin-left:100px; width:300px; position:absolute;"> 
+                            <div style="height:100px"><img src="http://ludei.com/ioshtml5/res/jquery.png" alt=""></div> 
+                        </div> 
+                        <div style="margin-left:400px; width:300px; position:absolute;"> 
+                            <div style="height:100px"><img src="http://ludei.com/ioshtml5/res/sencha.png" alt=""></div> 
+                        </div> 
+                    </div> 
+                    <div class="layer" style="height:80px; position:absolute;"> 
+                        <div style="margin-left:100px; width:300px; position:absolute;"> 
+                            <div style="height:100px"><img src="http://ludei.com/ioshtml5/res/phonegap.png" alt=""></div> 
+                        </div> 
+                        <div style="margin-left:400px; width:300px; position:absolute;"> 
+                            <div style="height:100px"><h1>Nitro Engine</h1></div> 
+                        </div> 
+                    </div> 
+     
+     
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                </div> 
+     
+                <!-- gracias --> 
+                <div class='sheet'> 
+                    <div class="layer" style="height:450px; background:url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                    <div class="layer" id='scene9' style="height:420px; overflow:hidden"> 
+                    </div> 
+     
+                    <div class="layer" style="height:400px; overflow:hidden"> 
+                        <div style="position:absolute; left:10px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:260px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:650px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:680px; top:210px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:390px; overflow:hidden"> 
+                        <div style="position:absolute; left:30px; top:200px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                        <div style="position:absolute; left:170px; top:200px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:620px; top:200px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:480px; top:200px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                    </div> 
+                    <div class="layer" style="height:380px; overflow:hidden"> 
+                        <div style="position:absolute; left:130px; top:190px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:330px; top:190px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:540px; top:190px"><img src="http://ludei.com/ioshtml5/scene1/a2.png"></div> 
+                        <div style="position:absolute; left:460px; top:190px"><img src="http://ludei.com/ioshtml5/scene1/a1.png"></div> 
+                    </div> 
+     
+     
+                    <div class="layer" style="height:300px; position:absolute;"> 
+                        <div style="text-align:center"> 
+                            <h1 class="titulo2">- Muchas gracias -</h1> 
+                        </div> 
+                    </div> 
+                    <div class="layer" style="height:80px; position:absolute;"> 
+                        <div style="text-align:center"> 
+                            <h1 class="titulo">Ibon Tolosana - @hyperandroid</h1> 
+                        </div> 
+                    </div> 
+     
+     
+                    <div class="floor" style="background: url('http://ludei.com/ioshtml5/book/3.jpg')"></div> 
+     
+                </div> 
+     
+            </div> 
+     
+        </div> 
+    </div> 
+    <div style="width:1024px; text-align:center"> 
+        <a class="small" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
+    </div> 
+     
+
+  <script type="text/javascript" src="book.js"></script>    
+
+</body>
+</html>
