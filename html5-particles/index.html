@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17485141-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+    <script type="text/javascript" src="particles.js"></script>    
+</head>
+<body bgcolor="#fff" >
+
+<div class="centeredDiv">
+    <canvas id="screen" width="200" height="200" style="display: block; margin-left: auto; margin-right: auto;">
+        This application requires a (fast) HTML5 compliant browser.
+    </canvas>
+</div>
+<div>
+        Textured:<input id="textured" type="checkbox">  
+        Max enabled particles:<select id="maxParticles">
+            <option value="100">100</option>
+            <option value="150">150</option>
+            <option value="200">200</option>
+            <option value="250" selected>250</option>
+            <option value="300">300</option>
+            <option value="350">350</option>
+            <option value="400">400</option>
+            <option value="450">450</option>
+            <option value="500">500</option>
+            <option value="550">550</option>
+            <option value="600">600</option>
+            <option value="650">650</option>
+            <option value="700">700</option>
+            <option value="750">750</option>
+        </select>
+        Particle color set:<select id="pcs">
+            <option value="0" selected>Forest</option>
+            <option value="1">Earth</option>
+            <option value="2">rgb</option>
+        </select>
+        Camera track: <input id="ct" type="checkbox" checked="checked">
+</div>
+
+Continuing with the 3D engine series, I'm presenting the particles font. Inspired in an old demo I saw sometime ago. 
+If you decide to check the textured option, be sure to be using Chrome, or you'll get very poor performance and/or totally spiderwebby polygons. You can control camera motion with the mouse by unchecking the 'camera track' option.
+There's the option of using images instead of colored arcs to represent particles on screen, but it leads to very poor performance, so I've decided to remove the option. I'll be (hopefully) adding more particle types soon.
+Take into account that the real number of particles on screen is double the selected number. 
+Enjoy :D.
+
+</body>
+</html>
