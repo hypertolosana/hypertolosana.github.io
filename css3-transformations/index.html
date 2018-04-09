@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Environment Map</title>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-17485141-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    <script type="text/javascript" src="environmentmap.js"></script>    
+
+    <style type="text/css">
+
+    .root {
+          height: 400px;
+          width: 400px;
+          position: relative;
+          top: 150px;
+          margin: 0 auto ;
+          -webkit-perspective: 1000;
+          -webkit-perspective-origin: 50% -30%;
+        }
+
+    #ring {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          margin: 0 auto;
+          -webkit-transition: -webkit-transform 1s ease;
+          -webkit-transform-style: preserve-3d;
+    }
+
+    #ring .face {
+          display: block;
+          position: absolute;
+          width: 380px;
+          height: 380px;
+          border-style: solid;
+          border-width: 1px;
+          border-color: #c0c0c0;
+          background-color: rgba(240, 240, 240, 0.9);
+          font-size: 80%;
+        }
+    </style>
+
+</head>
+<body bgcolor="#fff" >
+
+This Ring will only work on WebKit based browsers, mainly Safari and Chrome/Chromium [v.7 dev or greater].
+Use left and right arrow keys to rotate.
+
+
+    <div class="root">
+
+        <div id="ring">
+                <div class="face" id="f0">
+                    <div>
+                        <div>
+                          <a href="https://hypertolosana.wordpress.com/animation"><img src="https://hypertolosana.files.wordpress.com/2010/09/js_ha2d.jpg" alt="Animation Framework"/></a>
+                        </div>
+                        <div>
+                          <p class="title"><a href="https://hypertolosana.wordpress.com/animation">CAAT. Canvas Advanced Animation Toolkit</a><br>
+                         A 2D library aimed at developing games. You can define paths, scenes, transitions among scenes, perfect pixel collision detection, affine transforms, containers...<br>
+                          Since October 6th 2010, this project is open sourced: <a href="http://code.google.com/p/caat/">SourceCode</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="face" id="f1">
+                    <div>
+                        <div>
+                          <a href="https://hypertolosana.wordpress.com/js1k"><img src="https://hypertolosana.files.wordpress.com/2010/09/js_garden.jpg" alt="Garden"/></a>
+                        </div>
+                        <div>
+                          <p class="title"> <a href="https://hypertolosana.wordpress.com/js1k">Grass at breeze</a><br>
+                          My submission to js1k.com. Simulates grass animated by mild wind. There're some fireflies messing around and the stars move as well. Visit <a href="http://jsdo.it/hyperandroid/grass">my jsdo.it account</a> for unobfuscated sourcecode and a more featured version.
+                        </div>
+                      </div>
+                </div>
+                <div class="face" id="f2">
+                    <div>
+                      <div>
+                        <a href="https://hypertolosana.wordpress.com/environmentmap-html5"><img src="https://hypertolosana.files.wordpress.com/2010/09/js_environment.jpg" alt="3D Environment Map"/></a>
+                      </div>
+                      <div>
+                        <p class="title"><a href="https://hypertolosana.wordpress.com/environmentmap-html5">Environment Map</a>
+                        <p>Realtime 3D Environment Map. No plugins, just plain javascript and canvas.
+                      </div>
+                    </div>
+                </div>
+                <div class="face" id="f3">
+                    <div>
+                      <div>
+                        <a href="https://hypertolosana.wordpress.com/particles-html5"><img src="https://hypertolosana.files.wordpress.com/2010/09/js_particles.jpg" alt="3D Particles"/></a>
+                      </div>
+                      <div>
+                        <p class="title"><a href="https://hypertolosana.wordpress.com/particles-html5">Particles</a>
+                        <p>Realtime 3D particles with specular reflection and mouse camera tracking.
+                      </div>
+                    </div>
+                </div>
+                <div class="face" id="f4">
+                    <div>
+                      <div>
+                        <a href="https://hypertolosana.wordpress.com/html5-tiler-3d"><img src="https://hypertolosana.files.wordpress.com/2010/09/js_tiler.jpg" alt="Tiler 3D"/></a>
+                      </div>
+                      <div>
+                        <p class="title"><a href="https://hypertolosana.wordpress.com/html5-tiler-3d">Tiler 3D</a>
+                        <p>Realtime 3D image slideshow. Take a look at mindblowing image transitions in the form of a swarm of rotating image tiles.
+                      </div>
+                    </div>
+
+                </div>
+                <div class="face" id="f5">
+                    <div>
+                      <div>
+                        <a href="https://hypertolosana.wordpress.com/hypnoamoeba-html5"><img src="https://hypertolosana.files.wordpress.com/2010/09/js_hypnoamoeba.jpg" alt="Hypnoamoeba"/></a>
+                      </div>
+                      <div>
+                        <p class="title"><a href="https://hypertolosana.wordpress.com/hypnoamoeba-html5">Hypnoamoeba</a>
+                        <p>Realtime 3D model hierarchy resolution with dynamic lighting and mouse rotation tracking.
+                      </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var num_elements= 6;
+        var face_angle= 360/num_elements;
+        var elem= document.getElementById('ring');
+
+        // be aware of 400: size of external container ie root.
+        var r= Math.round( ( 400 / 2 ) / Math.tan( Math.PI / num_elements ) );
+        elem.style.webkitTransform='translateZ( -'+r+'px )';
+
+        var i=0;
+        for( i=0; i<num_elements; i++ ) {
+            var element= document.getElementById('f'+i);
+            element.style.webkitTransform='rotateY('+(i*face_angle)+'deg) translateZ('+r+'px)';
+        }
+
+        var angle = 0;
+
+        document.addEventListener(
+            'keydown',
+            function(e) {
+                switch(e.keyCode) {
+                    case 37: // left
+                        angle -= face_angle;
+                        break;
+                    case 39:
+                        angle += face_angle;
+                        break;
+                };
+
+                elem.style.webkitTransform = 'translateZ(-'+r+'px) rotateY('+angle+'deg)';
+            },
+            false);
+    </script>
+
+</body>
+</html>
