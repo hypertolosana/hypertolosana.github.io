@@ -16,64 +16,63 @@
       })();
 
     </script>
-    <script type="text/javascript" src="stroking.js"></script>    
-    <link rel="stylesheet" href="tiler.css" type="text/css">
 
 </head>
 <body bgcolor="#fff" >
 
-<div>
-    <div><canvas id="c"></canvas></div>
     <div>
+        <div><canvas id="c"></canvas></div>
         <div>
-        <span style="margin-right:15px;">
-            <span>Line cap</span>
-            <select id="cap">
-                <option value="butt">butt</option>
-                <option value="square">square</option>
-                <option value="round">round</option>
-            </select>
-        </span>
-        <span style="margin-right:15px;">
-            <span>Line join</span>
-            <select id="join">
-                <option value="bevel">bevel</option>
-                <option value="miter">miter</option>
-                <option value="round" selected>round</option>
-            </select>
-        </span>
-        <span style="margin-right:15px;">
-            <span>Miter limit</span>
-            <select id="miter">
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10" selected>10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-            </select>
-        </span>
-        </div>
-        <div>
-        <span style="margin-right:15px;">
-            <span>Show lines</span>
-            <input type="checkbox" checked id="lines">
-        </span>
-        <span style="margin-right:15px;">
-            <span>Draw with canvas</span>
-            <input type="checkbox" checked id="canvas">
-        </span>
+            <div>
+            <span style="margin-right:15px;">
+                <span>Line cap</span>
+                <select id="cap">
+                    <option value="butt">butt</option>
+                    <option value="square">square</option>
+                    <option value="round">round</option>
+                </select>
+            </span>
+            <span style="margin-right:15px;">
+                <span>Line join</span>
+                <select id="join">
+                    <option value="bevel">bevel</option>
+                    <option value="miter">miter</option>
+                    <option value="round" selected>round</option>
+                </select>
+            </span>
+            <span style="margin-right:15px;">
+                <span>Miter limit</span>
+                <select id="miter">
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10" selected>10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
+            </span>
+            </div>
+            <div>
+            <span style="margin-right:15px;">
+                <span>Show lines</span>
+                <input type="checkbox" checked id="lines">
+            </span>
+            <span style="margin-right:15px;">
+                <span>Draw with canvas</span>
+                <input type="checkbox" checked id="canvas">
+            </span>
+            </div>
         </div>
     </div>
-</div>
 
+    <script type="text/javascript" src="stroking.js"></script>    
 
 </body>
 </html>
